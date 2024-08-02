@@ -1,11 +1,9 @@
 package com.routinealarm.helpers
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.media.MediaPlayer
 import com.routinealarm.R.raw
 
-@SuppressLint("StaticFieldLeak")
 object SoundManager {
 
     private var soundsLibrary =  LinkedHashMap<String, MediaPlayer>()

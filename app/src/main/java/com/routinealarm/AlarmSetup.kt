@@ -72,19 +72,10 @@ fun AlarmSetup (
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(top = 30.dp),
+                .padding(top = 20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally)
         {
-            Row (verticalAlignment = Alignment.CenterVertically)
-            {
-                Checkbox(
-                    checked = alarm.doTimeInterval,
-                    onCheckedChange = { checked -> alarm.doTimeInterval = checked}
-                )
-                Text ("Time Interval")
-            }
-
             LineEdit(title = "Name", initialText = alarm.label,
                 onChange = { text: String -> alarm.label = text })
 
@@ -93,18 +84,17 @@ fun AlarmSetup (
                 currentTime = alarm.timeStart,
                 onChange = { time: String -> alarm.timeStart = time })
 
-            if (alarm.doTimeInterval) {
-                TimeSelect(
-                    title = "End Time",
-                    currentTime = alarm.timeEnd,
-                    onChange = { time: String -> alarm.timeEnd = time })
+            TimeSelect(
+                enabled = (((alarm.timeInterval.toIntOrNull() ?: 0) > 0)),
+                title = "End Time",
+                currentTime = alarm.timeEnd,
+                onChange = { time: String -> alarm.timeEnd = time })
 
-                LineEdit(
-                    title = "Time Interval (minutes)",
-                    initialText = alarm.timeInterval,
-                    isNumeric = true,
-                    onChange = { text: String -> alarm.timeInterval = text })
-            }
+            LineEdit(
+                title = "Time Interval (minutes)",
+                initialText = if (alarm.timeInterval=="") "0" else alarm.timeInterval,
+                isNumeric = true,
+                onChange = { text: String -> alarm.timeInterval = text })
 
             ComboBox(
                 title = "Sound",
@@ -113,7 +103,7 @@ fun AlarmSetup (
 
             LineEdit(
                 title = "Sound Repetition",
-                initialText = alarm.soundRep,
+                initialText = if (alarm.soundRep=="") "0" else alarm.soundRep,
                 isNumeric = true,
                 maximum = 20,
                 onChange = { text: String -> alarm.soundRep = text })
