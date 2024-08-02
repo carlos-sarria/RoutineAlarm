@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.routinealarm.helpers.SoundManager
 
 @Composable
 fun AlarmItem (
@@ -160,7 +161,7 @@ fun AlarmList(
 
                     Icon(Icons.Outlined.MoreVert,
                         contentDescription = "Configuration",
-                        modifier = modifier.clickable { })
+                        modifier = modifier.clickable { SoundManager.play("chime", 3)})
                 }
             }
 

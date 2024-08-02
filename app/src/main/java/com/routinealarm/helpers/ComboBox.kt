@@ -1,4 +1,4 @@
-package com.routinealarm
+package com.routinealarm.helpers
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -37,7 +37,7 @@ fun PullDown(
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(list[0]) }
 
-    Box() {
+    Box {
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = {

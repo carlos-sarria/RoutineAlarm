@@ -1,4 +1,4 @@
-package com.routinealarm
+package com.routinealarm.helpers
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

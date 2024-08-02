@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.routinealarm.helpers.Prefs
 
 data class Alarm (var id: Int)
 {
@@ -88,7 +89,7 @@ class ViewModel : ViewModel() {
 
     private fun loadAlarms() {
         val numAlarms : Int = Prefs.get(key="Num")
-        for (id in 0..numAlarms-1) {
+        for (id in 0..< numAlarms ) {
             val alarm  = Alarm(id)
             alarm.checked = false
             alarm.enabled = Prefs.get(key="enabled_$id")

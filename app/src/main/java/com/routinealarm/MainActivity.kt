@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.routinealarm.helpers.Prefs
+import com.routinealarm.helpers.SoundManager
 import com.routinealarm.ui.theme.RoutineAlarmTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,6 +22,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         Prefs.init(this)
+        SoundManager.init(this)
     }
 }
 

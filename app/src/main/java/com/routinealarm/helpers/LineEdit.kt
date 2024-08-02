@@ -1,4 +1,4 @@
-package com.routinealarm
+package com.routinealarm.helpers
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField

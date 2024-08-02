@@ -1,4 +1,4 @@
-package com.routinealarm
+package com.routinealarm.helpers
 
 import android.content.Context
 import android.content.SharedPreferences
