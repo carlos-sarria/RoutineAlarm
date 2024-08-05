@@ -21,8 +21,14 @@ class MainActivity : ComponentActivity() {
                 MainWidget(modifier = Modifier)
             }
         }
-        Prefs.init(this)
-        SoundManager.init(this)
+        appContext = this
+        Prefs.init(appContext)
+        SoundManager.init(appContext)
+    }
+
+    companion object {
+        lateinit var appContext: MainActivity
+            private set
     }
 }
 

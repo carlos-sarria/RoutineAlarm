@@ -159,9 +159,9 @@ fun AlarmList(
 
                     Spacer(modifier = modifier.weight(1f))
 
-                    Icon(Icons.Outlined.MoreVert,
-                        contentDescription = "Configuration",
-                        modifier = modifier.clickable { SoundManager.play("chime", 3)})
+//                    Icon(Icons.Outlined.MoreVert,
+//                        contentDescription = "Configuration",
+//                        modifier = modifier.clickable { SoundManager.play("chime", 3)})
                 }
             }
 
