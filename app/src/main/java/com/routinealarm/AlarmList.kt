@@ -62,11 +62,7 @@ fun AlarmItem (
             )
             Text(
                 modifier = modifier.padding(horizontal = 5.dp),
-                text = "%s to %s every %s min".format(
-                    alarm.timeStart,
-                    alarm.timeEnd,
-                    alarm.timeInterval
-                ),
+                text = "%s, every %s min".format(alarm.timeStart,alarm.timeInterval),
                 style = MaterialTheme.typography.bodySmall,
                 color = color
             )

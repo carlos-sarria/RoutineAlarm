@@ -75,8 +75,11 @@ fun AlarmSetup (
                 contentDescription = "Accept",
                 modifier = modifier.clickable {
                     if(alarmId==-1) model.add(alarm)
-                    else model.copy(alarm, model.alarms[alarmId])
-                    model.setSystemAlarm(alarm)
+                    else {
+                        model.removeSystemAlarm(model.alarms[alarmId])  // delete previous alarms
+                        model.copy(alarm, model.alarms[alarmId])
+                    }
+                    model.setSystemAlarm(alarm) // set new
                     model.saveAlarms()
                     onClick(true)
 
@@ -99,11 +102,11 @@ fun AlarmSetup (
                 currentTime = alarm.timeStart,
                 onChange = { time: String -> alarm.timeStart = time })
 
-            TimeSelect(
-                enabled = (((alarm.timeInterval.toIntOrNull() ?: 0) > 0)),
-                title = "End Time",
-                currentTime = alarm.timeEnd,
-                onChange = { time: String -> alarm.timeEnd = time })
+            LineEdit(
+                title = "Number of Intervals",
+                initialText = if (alarm.numIntervals=="") "0" else alarm.numIntervals,
+                isNumeric = true,
+                onChange = { text: String -> alarm.numIntervals = text })
 
             LineEdit(
                 title = "Time Interval (minutes)",
@@ -124,7 +127,7 @@ fun AlarmSetup (
                 onChange = { text: String -> alarm.soundRep = text })
 
             MultipleSelection(
-                title = "Repeat",
+                title = "Day Schedule",
                 listNames = arrayOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
                 listStates = alarm.weeklyRep,
                 onChange = { list -> alarm.weeklyRep.copyInto(list)}
