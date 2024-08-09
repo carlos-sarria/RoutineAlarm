@@ -62,7 +62,8 @@ fun AlarmItem (
             )
             Text(
                 modifier = modifier.padding(horizontal = 5.dp),
-                text = "%s, every %s min".format(alarm.timeStart,alarm.timeInterval),
+                text = if (alarm.timeInterval.toInt()>0) "%s every %s min".format(alarm.timeStart,alarm.timeInterval)
+                else "%s no repeat".format(alarm.timeStart),
                 style = MaterialTheme.typography.bodySmall,
                 color = color
             )
