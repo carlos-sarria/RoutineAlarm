@@ -7,37 +7,34 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.PowerManager
 import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
+import com.routinealarm.MainActivity.Companion.appContext
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
 
 const val RMNDRNOTITITLEKEY : String = "RoutineAlarm"
-const val RMNDRNOTIID : Int = 0
 
 object ScheduleNotification {
 
     @SuppressLint("ScheduleExactAlarm")
-    fun scheduleNotification(
-        context: Context,
+    fun schedule(
         hour: Int,
         minute: Int,
+        requestCode : Int,
         title: String
     ) {
-        val intent = Intent(context.applicationContext, ReminderReceiver::class.java)
+        val intent = Intent(appContext.applicationContext, ReminderReceiver::class.java)
         intent.setAction("RoutineAlarm")
 
         intent.putExtra(RMNDRNOTITITLEKEY, title)
         val pendingIntent = PendingIntent.getBroadcast(
-            context.applicationContext,
-            RMNDRNOTIID,
+            appContext.applicationContext,
+            requestCode,
             intent,
             PendingIntent.FLAG_MUTABLE
         )
 
-
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -48,13 +45,26 @@ object ScheduleNotification {
 
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis(), //calendar.timeInMillis,
+            calendar.timeInMillis,
             pendingIntent
         )
 
+        val abso = System.currentTimeMillis()
+        val setted = calendar.timeInMillis
+        Log.i("ALARM","millisecs $abso $setted")
         Log.i("ALARM","scheduleNotification $hour $minute $year $month $day")
     }
 
+    fun clear(requestCode : Int) {
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = PendingIntent.getBroadcast(
+            appContext,
+            requestCode,
+            Intent(appContext.applicationContext,ReminderReceiver::class.java),
+            PendingIntent.FLAG_MUTABLE
+        )
+        alarmManager.cancel(pendingIntent)
+    }
 }
 
 class ReminderReceiver : BroadcastReceiver() {
@@ -71,7 +81,9 @@ class ReminderNotification(private val context: Context) {
     private val notificationManager = context.getSystemService(NotificationManager::class.java)
 
     fun playScheduledSound(title: String?) {
-        SoundManager.play("chime", 3)
+        val reps : Int = title?.substring(0, 2)?.toInt() ?: 0
+        val sound : String = title?.substring(2).toString()
+        SoundManager.play(sound, reps)
         Log.i("ALARM","playScheduledSound")
     }
 }

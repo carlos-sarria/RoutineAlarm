@@ -1,10 +1,13 @@
 package com.routinealarm
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.routinealarm.helpers.Prefs
+import kotlin.Int.Companion.MAX_VALUE
+import kotlin.random.Random
 
 data class Alarm (var id: Int)
 {
@@ -16,6 +19,7 @@ data class Alarm (var id: Int)
     var timeInterval by mutableStateOf("0")
     var soundName by mutableStateOf("chime")
     var soundRep by mutableStateOf("1")
+    var requestCode by mutableIntStateOf(Random.nextInt(0, MAX_VALUE))
     var weeklyRep by mutableStateOf(arrayOf(false, false, false, false, false, false,false))
 
 }
@@ -35,7 +39,6 @@ class ViewModel : ViewModel() {
 
     fun add(alarm : Alarm) {
         _alarms.add(alarm)
-        alarmsUpdated()
     }
 
     fun copy(source : Alarm, destination : Alarm) {
@@ -47,6 +50,7 @@ class ViewModel : ViewModel() {
         destination.timeInterval = source.timeInterval
         destination.soundName = source.soundName
         destination.soundRep = source.soundRep
+        destination.requestCode = source.requestCode
         destination.weeklyRep.copyInto(source.weeklyRep)
     }
 
@@ -54,23 +58,35 @@ class ViewModel : ViewModel() {
         val iterator = _alarms.iterator()
         while (iterator.hasNext()) {
             val element = iterator.next()
-            if (element.checked) iterator.remove()
+            if (element.checked) {
+                iterator.remove()
+                ScheduleNotification.clear(element.requestCode)
+            }
         }
-        alarmsUpdated()
+        saveAlarms()
     }
 
     fun changeAlarmChecked(item: Alarm, checked: Boolean) =
         _alarms.find { it.id == item.id }?.let { alarm -> alarm.checked = checked; }
 
     fun changeAlarmEnabled(item: Alarm, checked: Boolean) =
-        _alarms.find { it.id == item.id }?.let { alarm -> alarm.enabled = checked; alarmsUpdated(); }
+        _alarms.find { it.id == item.id }?.let { alarm ->
+            alarm.enabled = checked;
+            saveAlarms();
+        }
 
-    private fun alarmsUpdated()
+    fun setSystemAlarm(alarm : Alarm)
     {
-        saveAlarms()
+        ScheduleNotification.clear(alarm.requestCode)
+        ScheduleNotification.schedule(
+            hour = alarm.timeStart.substring(0, 2).toInt(),
+            minute = alarm.timeStart.substring(3, 5).toInt(),
+            requestCode = alarm.requestCode,
+            title = alarm.soundRep.padStart(2, '0')+alarm.soundName
+        )
     }
 
-    private fun saveAlarms(){
+    fun saveAlarms(){
         Prefs.clear()
         Prefs.set(key="Num", value=alarms.size)
         _alarms.forEachIndexed { index, alarm ->

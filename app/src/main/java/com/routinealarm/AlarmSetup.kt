@@ -75,14 +75,11 @@ fun AlarmSetup (
                 contentDescription = "Accept",
                 modifier = modifier.clickable {
                     if(alarmId==-1) model.add(alarm)
-                    else model.copy(alarm,model.alarms[alarmId])
+                    else model.copy(alarm, model.alarms[alarmId])
+                    model.setSystemAlarm(alarm)
+                    model.saveAlarms()
                     onClick(true)
-                    ScheduleNotification.scheduleNotification(
-                        context = appContext,
-                        hour = alarm.timeStart.substring(0, 2).toInt(),
-                        minute = alarm.timeStart.substring(3, 5).toInt(),
-                        title = ""
-                    )
+
                 }
             )
         }

@@ -17,7 +17,7 @@ object SoundManager {
     }
 
     fun play(sound : String, reps : Int) {
-        var numReps = reps
+        var numReps = reps-1
         soundsLibrary[sound]?.setOnCompletionListener {
             if(numReps-->0) {
                 soundsLibrary[sound]?.seekTo(0)
