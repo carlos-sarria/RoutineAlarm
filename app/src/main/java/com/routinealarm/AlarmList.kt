@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.routinealarm.helpers.SoundManager
 
 @Composable
 fun AlarmItem (
@@ -97,7 +96,48 @@ fun AlarmList(
     var allChecked by rememberSaveable { mutableStateOf(false) }
     val scope = currentRecomposeScope
 
-    Scaffold( // Scaffold give us the easiest floating button
+    Scaffold(
+        topBar = {
+//            AppBar(onNavigationIconClick = {
+//                scope.launch {
+//                    scaffoldState.drawerState.open()
+//                }
+//
+//            })
+            Row(
+                modifier = modifier
+                    .padding(horizontal = 20.dp, vertical = 60.dp)
+                    .height(32.dp),
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+                Text(
+                    modifier = modifier
+                        .padding(horizontal = 5.dp)
+                        .clickable { isEdited = !isEdited },
+                    text = if(isEdited) "Close" else "Edit",
+                    style = MaterialTheme.typography.labelSmall,
+                )
+
+                Spacer(modifier = modifier.weight(1f))
+
+                if (isEdited)
+                    Checkbox(
+                        modifier = modifier.padding(end = 10.dp),
+                        checked = allChecked,
+                        onCheckedChange = {
+                            allChecked = !allChecked
+                            model.alarms.forEach { alarm ->
+                                alarm.checked = allChecked
+                            }
+                        }
+                    )
+                else
+                    Icon(Icons.Outlined.MoreVert,
+                        contentDescription = "Setup",
+                        modifier = modifier.clickable {})
+            }
+        },
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
             FloatingActionButton(
@@ -113,55 +153,10 @@ fun AlarmList(
                 else          Icon(Icons.Outlined.Add, null)
             }
         }
+
     ) {
-        Column(modifier = modifier.padding(start = 10.dp, top = 50.dp, end = 10.dp, bottom = 50.dp))
+        Column(modifier = modifier.padding(start = 10.dp, top = 100.dp, end = 10.dp, bottom = 50.dp))
         {
-            // Top Row. TODO: Move it to scaffold
-            Row(
-                modifier = modifier
-                    .padding(horizontal = 20.dp, vertical = 5.dp)
-                    .height(32.dp),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-
-                if (isEdited) {
-                    Icon(Icons.Outlined.Close,
-                        contentDescription = "Close",
-                        modifier = modifier
-                            .padding(horizontal = 5.dp)
-                            .clickable { isEdited = !isEdited }
-                    )
-
-                    Spacer(modifier = modifier.weight(1f))
-
-                    Checkbox(
-                        checked = allChecked,
-                        onCheckedChange = {
-                            allChecked = !allChecked
-                            model.alarms.forEach { alarm ->
-                                alarm.checked = allChecked
-                            }
-                        }
-                    )
-
-                } else {
-                    Text(
-                        modifier = modifier
-                            .padding(horizontal = 5.dp)
-                            .clickable { isEdited = !isEdited },
-                        text = "Edit",
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-
-                    Spacer(modifier = modifier.weight(1f))
-
-//                    Icon(Icons.Outlined.MoreVert,
-//                        contentDescription = "Configuration",
-//                        modifier = modifier.clickable { SoundManager.play("chime", 3)})
-                }
-            }
-
             // List of alarms
             LazyColumn(
                 modifier = modifier

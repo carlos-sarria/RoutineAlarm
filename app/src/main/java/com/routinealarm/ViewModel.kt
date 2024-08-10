@@ -68,14 +68,14 @@ class ViewModel : ViewModel() {
         saveAlarms()
     }
 
-    fun changeAlarmChecked(alarm: Alarm, checked: Boolean) =
-        _alarms.find { it.id == alarm.id }?.let { alarm -> alarm.checked = checked; }
+    fun changeAlarmChecked(item: Alarm, checked: Boolean) =
+        _alarms.find { it.id == item.id }?.let { alarm -> alarm.checked = checked; }
 
-    fun changeAlarmEnabled(alarm: Alarm, checked: Boolean) =
-        _alarms.find { it.id == alarm.id }?.let { alarm ->
-            alarm.enabled = checked;
+    fun changeAlarmEnabled(item: Alarm, checked: Boolean) =
+        _alarms.find { it.id == item.id }?.let { alarm ->
+            alarm.enabled = checked
             if(alarm.enabled) setSystemAlarm(alarm) else removeSystemAlarm(alarm)
-            saveAlarms();
+            saveAlarms()
         }
 
     fun removeSystemAlarm(alarm : Alarm)
