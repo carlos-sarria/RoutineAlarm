@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.routinealarm.MainActivity.Companion.appContext
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
@@ -46,6 +47,13 @@ object ScheduleNotification {
             calendar.timeInMillis,
             pendingIntent
         )
+    }
+
+    fun clearAll() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancelAll()
+        }
     }
 
     fun clear(requestCode : Int) {

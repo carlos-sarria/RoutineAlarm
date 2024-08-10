@@ -61,8 +61,6 @@ fun AlarmSetup (
                 style = MaterialTheme.typography.labelSmall,
             )
 
-            val time = rememberTimePickerState(initialHour = 12, initialMinute = 28, is24Hour = true)
-
             Icon(Icons.Outlined.Check,
                 contentDescription = "Accept",
                 modifier = modifier.clickable {

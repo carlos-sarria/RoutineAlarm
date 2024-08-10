@@ -56,16 +56,17 @@ class ViewModel : ViewModel() {
         destination.weeklyRep.copyInto(source.weeklyRep)
     }
 
-    fun deleteChecked() {
+    fun deleteChecked(forceAll : Boolean = false) {
         val iterator = _alarms.iterator()
         while (iterator.hasNext()) {
             val element = iterator.next()
-            if (element.checked) {
+            if (element.checked || forceAll) {
                 iterator.remove()
                 ScheduleNotification.clear(element.requestCode)
             }
         }
         saveAlarms()
+        if(forceAll) ScheduleNotification.clearAll()
     }
 
     fun changeAlarmChecked(item: Alarm, checked: Boolean) =
