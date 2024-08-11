@@ -85,7 +85,6 @@ fun MultipleSelectionPopup(
                     Checkbox(
                         checked = tempList[index],
                         onCheckedChange = {  checked ->
-                            // tempList += false; // Trick to force redraw
                             scope.invalidate()
                             tempList[index] = checked }
                     )

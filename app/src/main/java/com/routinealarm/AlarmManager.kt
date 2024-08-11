@@ -7,25 +7,22 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import com.routinealarm.MainActivity.Companion.appContext
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
+import java.util.Date
+import com.routinealarm.ViewModel as appViewModel
 
 const val RMNDRNOTITITLEKEY : String = "RoutineAlarm"
 
 object ScheduleNotification {
 
-    @SuppressLint("ScheduleExactAlarm")
-    fun schedule(
-        hour: Int,
-        minute: Int,
-        requestCode : Int,
-        title: String
-    ) {
+    private fun getIntent (requestCode : Int) : PendingIntent {
         val intent = Intent(appContext.applicationContext, ReminderReceiver::class.java)
         intent.setAction("RoutineAlarm")
 
-        intent.putExtra(RMNDRNOTITITLEKEY, title)
+        intent.putExtra(RMNDRNOTITITLEKEY, requestCode)
         val pendingIntent = PendingIntent.getBroadcast(
             appContext.applicationContext,
             requestCode,
@@ -33,6 +30,16 @@ object ScheduleNotification {
             PendingIntent.FLAG_MUTABLE
         )
 
+        return pendingIntent
+    }
+
+    @SuppressLint("ScheduleExactAlarm")
+    fun schedule(
+        hour: Int,
+        minute: Int,
+        requestCode : Int
+    ) {
+        val pendingIntent = getIntent(requestCode)
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val calendar = Calendar.getInstance()
@@ -40,13 +47,14 @@ object ScheduleNotification {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        //calendar.time = Date()
         calendar.set(year, month, day, hour, minute)
 
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
+        val info : AlarmManager.AlarmClockInfo = AlarmManager.AlarmClockInfo(
+            calendar.timeInMillis - (30*1000),
             pendingIntent
         )
+        alarmManager.setAlarmClock(info, pendingIntent)
     }
 
     fun clearAll() {
@@ -58,12 +66,7 @@ object ScheduleNotification {
 
     fun clear(requestCode : Int) {
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = PendingIntent.getBroadcast(
-            appContext,
-            requestCode,
-            Intent(appContext.applicationContext,ReminderReceiver::class.java),
-            PendingIntent.FLAG_MUTABLE
-        )
+        val pendingIntent = getIntent(requestCode)
         alarmManager.cancel(pendingIntent)
     }
 }
@@ -71,16 +74,18 @@ object ScheduleNotification {
 class ReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val scheduleNotificationService = context?.let { ReminderNotification() }
-        val title: String? = intent?.getStringExtra(RMNDRNOTITITLEKEY)
-        scheduleNotificationService?.playScheduledSound(title)
+        val requestCode: Int? = intent?.getIntExtra(RMNDRNOTITITLEKEY,0)
+        scheduleNotificationService?.playScheduledSound(requestCode)
     }
 }
 
 class ReminderNotification {
 
-    fun playScheduledSound(title: String?) {
-        val reps : Int = title?.substring(0, 2)?.toInt() ?: 0
-        val sound : String = title?.substring(2).toString()
-        SoundManager.play(sound, reps)
+    fun playScheduledSound(requestCode: Int?) {
+        val viewModel = appViewModel()
+        val alarm : Alarm? = viewModel.alarms.find { alarm -> alarm.requestCode == requestCode }
+        if(alarm == null) return
+
+        SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
     }
 }

@@ -13,7 +13,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.ComboBox
 import com.routinealarm.helpers.LineEdit
 import com.routinealarm.helpers.MultipleSelection
+import com.routinealarm.helpers.SoundManager
 import com.routinealarm.helpers.TimeSelect
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,7 +107,7 @@ fun AlarmSetup (
             ComboBox(
                 title = "Sound",
                 list = soundList,
-                onChange = { sound: String -> alarm.soundName = sound })
+                onChange = { sound: String -> alarm.soundName = sound; SoundManager.play(alarm.soundName, 1) })
 
             LineEdit(
                 title = "Sound Repetition",

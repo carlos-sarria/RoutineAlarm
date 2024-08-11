@@ -81,29 +81,19 @@ class ViewModel : ViewModel() {
 
     fun removeSystemAlarm(alarm : Alarm)
     {
-        var reps = alarm.numIntervals.toInt()
-        while (reps >= 0) {
-            ScheduleNotification.clear(alarm.requestCode+reps)
-            reps--
-        }
+        ScheduleNotification.clear(alarm.requestCode)
     }
 
     fun setSystemAlarm(alarm : Alarm)
     {
-        var reps = alarm.numIntervals.toInt()
-        var hour = hour(alarm.timeStart)
-        var minute = minute(alarm.timeStart)
-        while (reps >= 0) {
-            ScheduleNotification.schedule(
-                hour = hour,
-                minute = minute,
-                requestCode = alarm.requestCode+reps,
-                title = alarm.soundRep.padStart(2, '0') + alarm.soundName
-            )
-            minute += alarm.timeInterval.toInt()
-            if(minute>59) { minute %= 59; hour++}
-            reps--
-        }
+        val hour = hour(alarm.timeStart)
+        val minute = minute(alarm.timeStart)
+
+        ScheduleNotification.schedule(
+            hour = hour,
+            minute = minute,
+            requestCode = alarm.requestCode,
+        )
     }
 
     fun saveAlarms(){
