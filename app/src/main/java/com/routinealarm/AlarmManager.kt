@@ -19,13 +19,28 @@ const val RMNDRNOTITITLEKEY : String = "RoutineAlarm"
 fun getExactTime(hour: Int, minute: Int): Long {
 
     val calendar = Calendar.getInstance()
-    val year = calendar.get(Calendar.YEAR)
-    val month = calendar.get(Calendar.MONTH)
-    val day = calendar.get(Calendar.DAY_OF_MONTH)
+    calendar.time = Date() // Current time
 
-    calendar.set(year, month, day, hour, minute)
+    val currentTime = calendar.timeInMillis
 
-    return calendar.timeInMillis - (30*1000)
+    calendar.set(
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH),
+        hour,
+        minute,
+        0)
+
+    var alarmTime = calendar.timeInMillis
+
+    if(alarmTime < currentTime)
+    {
+        // The alarm is set in the past so add one day
+        calendar.add(Calendar.DATE, 1);
+        alarmTime = calendar.timeInMillis
+    }
+
+    return alarmTime
 }
 
 object ScheduleNotification {
@@ -90,11 +105,8 @@ class ReminderNotification {
         val alarm : Alarm? = viewModel.alarms.find { alarm -> alarm.requestCode == requestCode }
         if(alarm == null) return
 
-        val alarmTime = getExactTime(hour(alarm.timeStart),minute(alarm.timeStart))
-        val calendar = Calendar.getInstance()
-        calendar.time = Date()
-        val currentTime: Long = calendar.timeInMillis
-        if(alarmTime < currentTime) return // The alarm is set in the past so do not sound
+        // Set the next alarm
+        // val day : Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
         SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
     }
