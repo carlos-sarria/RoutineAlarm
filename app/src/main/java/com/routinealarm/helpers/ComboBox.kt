@@ -19,11 +19,12 @@ import androidx.compose.ui.Modifier
 fun ComboBox(
     title : String = "",
     list: Array<String>,
+    selected : String,
     onChange: (String) -> Unit)
 {
     Row()
     {
-        PullDown(list, title = title, onChange = { selection : String -> onChange(selection)} )
+        PullDown(list, title = title, selected = selected, onChange = { selection : String -> onChange(selection)} )
     }
 }
 
@@ -32,10 +33,11 @@ fun ComboBox(
 fun PullDown(
     list: Array<String>,
     onChange: (String) -> Unit,
+    selected : String,
     title : String,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(list[0]) }
+    var selectedText by remember { mutableStateOf(selected) }
 
     Box {
         ExposedDropdownMenuBox(

@@ -107,6 +107,7 @@ fun AlarmSetup (
             ComboBox(
                 title = "Sound",
                 list = soundList,
+                selected = alarm.soundName,
                 onChange = { sound: String -> alarm.soundName = sound; SoundManager.play(alarm.soundName, 1) })
 
             LineEdit(

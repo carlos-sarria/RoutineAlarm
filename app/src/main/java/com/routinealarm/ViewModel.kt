@@ -3,6 +3,8 @@ package com.routinealarm
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.routinealarm.helpers.Prefs
@@ -20,7 +22,7 @@ data class Alarm (var id: Int)
     var soundName by mutableStateOf("chime")
     var soundRep by mutableStateOf("1")
     var requestCode by mutableIntStateOf(Random.nextInt(0, MAX_VALUE))
-    var weeklyRep by mutableStateOf(arrayOf(false, false, false, false, false, false,false))
+    var weeklyRep by mutableStateOf(arrayOf(true, true, true, true, true, true,true))
 
 }
 

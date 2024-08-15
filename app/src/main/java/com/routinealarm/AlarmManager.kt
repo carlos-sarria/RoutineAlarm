@@ -7,22 +7,20 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.routinealarm.MainActivity.Companion.appContext
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
 import java.util.Date
+import kotlin.time.Duration.Companion.days
 import com.routinealarm.ViewModel as appViewModel
 
 const val RMNDRNOTITITLEKEY : String = "RoutineAlarm"
 
 fun getExactTime(hour: Int, minute: Int): Long {
-
     val calendar = Calendar.getInstance()
-    calendar.time = Date() // Current time
-
-    val currentTime = calendar.timeInMillis
-
     calendar.set(
         calendar.get(Calendar.YEAR),
         calendar.get(Calendar.MONTH),
@@ -30,20 +28,63 @@ fun getExactTime(hour: Int, minute: Int): Long {
         hour,
         minute,
         0)
+    return calendar.timeInMillis
+}
 
-    var alarmTime = calendar.timeInMillis
+fun getCurrentTime () : Long {
+    val calendar = Calendar.getInstance()
+    calendar.time = Date()
+    return calendar.timeInMillis
+}
 
-    if(alarmTime < currentTime)
+fun getCurrentWeekDay () : Int {
+    val calendar = Calendar.getInstance()
+    return calendar.get(Calendar.DAY_OF_WEEK) - 1; // From 0 to 6 (Mon to Sun)
+}
+
+fun getNextAlarm(requestCode : Int) : Long {
+    val alarm : Alarm? = appViewModel().alarms.find { alarm -> alarm.requestCode == requestCode }
+    if(alarm == null) return 0
+
+    var alarmTime = getExactTime(hour(alarm.timeStart), minute(alarm.timeStart))
+    val currentTime = getCurrentTime ()
+
+    var currentRep : Int = 0
+    val numIntervals = alarm.numIntervals.toInt()
+    val intervalLength : Long = alarm.timeInterval.toLong() * 60000
+
+    if(alarmTime < currentTime &&  (alarmTime +(numIntervals * intervalLength)) < currentTime)
     {
-        // The alarm is set in the past so add one day
-        calendar.add(Calendar.DATE, 1);
-        alarmTime = calendar.timeInMillis
+        alarmTime += (24*60*60*1000) // Add one day because alarm is set in the past
     }
 
-    return alarmTime
+    if (intervalLength > 0 && numIntervals > 0) {
+        currentRep  = ((currentTime - alarmTime) / intervalLength).toInt()
+    }
+
+    var returnTime : Long = 0
+    if (currentRep+1 == numIntervals) {
+        val today : Int = getCurrentWeekDay()
+        var dayCount = 0
+        while(dayCount<7)
+        {
+            val nextDay : Int = (today + dayCount + 1) % 7
+            if(alarm.weeklyRep[nextDay]){
+                returnTime = alarmTime + nextDay * (24*60*60*1000)
+                break
+            }
+            dayCount++
+        }
+    }
+    else{
+        returnTime = alarmTime + (currentRep+1) * intervalLength
+    }
+    return returnTime
 }
 
 object ScheduleNotification {
+
+    var firstTimeAlarm: Boolean by  mutableStateOf(false)
 
     private fun getIntent (requestCode : Int) : PendingIntent {
         val intent = Intent(appContext.applicationContext, ReminderReceiver::class.java)
@@ -69,8 +110,24 @@ object ScheduleNotification {
         val pendingIntent = getIntent(requestCode)
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+        firstTimeAlarm = true
+
         val info : AlarmManager.AlarmClockInfo = AlarmManager.AlarmClockInfo(
             getExactTime(hour, minute) ,
+            pendingIntent
+        )
+        alarmManager.setAlarmClock(info, pendingIntent)
+    }
+
+    fun schedule(
+        milliseconds: Long,
+        requestCode : Int
+    ) {
+        val pendingIntent = getIntent(requestCode)
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val info : AlarmManager.AlarmClockInfo = AlarmManager.AlarmClockInfo(
+            milliseconds,
             pendingIntent
         )
         alarmManager.setAlarmClock(info, pendingIntent)
@@ -93,21 +150,29 @@ object ScheduleNotification {
 class ReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val scheduleNotificationService = context?.let { ReminderNotification() }
-        val requestCode: Int? = intent?.getIntExtra(RMNDRNOTITITLEKEY,0)
+        val requestCode: Int = intent?.getIntExtra(RMNDRNOTITITLEKEY,0)!!
         scheduleNotificationService?.playScheduledSound(requestCode)
     }
 }
 
 class ReminderNotification {
 
-    fun playScheduledSound(requestCode: Int?) {
-        val viewModel = appViewModel()
-        val alarm : Alarm? = viewModel.alarms.find { alarm -> alarm.requestCode == requestCode }
+    fun playScheduledSound(requestCode: Int) {
+        val alarm : Alarm? = appViewModel().alarms.find { alarm -> alarm.requestCode == requestCode }
         if(alarm == null) return
 
-        // Set the next alarm
-        // val day : Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        // Delete current alarm and add next alarm
+        ScheduleNotification.clear(requestCode)
+        val nextAlarmMilliseconds = getNextAlarm(requestCode)
+        if(nextAlarmMilliseconds>0) ScheduleNotification.schedule(nextAlarmMilliseconds, requestCode)
 
-        SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
+        // Sound alarm
+        val soundAlarm : Boolean = !ScheduleNotification.firstTimeAlarm
+        if(soundAlarm) {
+            SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
+        }
+        else{
+            ScheduleNotification.firstTimeAlarm = false
+        }
     }
 }
