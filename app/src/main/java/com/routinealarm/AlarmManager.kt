@@ -14,7 +14,6 @@ import com.routinealarm.MainActivity.Companion.appContext
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
 import java.util.Date
-import kotlin.time.Duration.Companion.days
 import com.routinealarm.ViewModel as appViewModel
 
 const val RMNDRNOTITITLEKEY : String = "RoutineAlarm"
@@ -39,7 +38,7 @@ fun getCurrentTime () : Long {
 
 fun getCurrentWeekDay () : Int {
     val calendar = Calendar.getInstance()
-    return calendar.get(Calendar.DAY_OF_WEEK) - 1; // From 0 to 6 (Mon to Sun)
+    return calendar.get(Calendar.DAY_OF_WEEK) - 1 // From 0 to 6 (Mon to Sun)
 }
 
 fun getNextAlarm(requestCode : Int) : Long {
@@ -49,7 +48,7 @@ fun getNextAlarm(requestCode : Int) : Long {
     var alarmTime = getExactTime(hour(alarm.timeStart), minute(alarm.timeStart))
     val currentTime = getCurrentTime ()
 
-    var currentRep : Int = 0
+    var currentRep  = 0
     val numIntervals = alarm.numIntervals.toInt()
     val intervalLength : Long = alarm.timeInterval.toLong() * 60000
 
