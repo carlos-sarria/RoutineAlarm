@@ -1,8 +1,6 @@
 package com.routinealarm
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,7 +11,6 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -33,62 +29,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-
-@Composable
-fun AlarmItem (
-    alarm: Alarm,
-    enabled: Boolean,
-    checked: Boolean,
-    onEnabled: (Boolean) -> Unit,
-    onChecked: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    isEditMode: Boolean = false
-){
-    Row(
-        modifier = modifier.padding(horizontal = 20.dp, vertical = 5.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        val color : Color = if (enabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.inversePrimary
-
-        Column (modifier = modifier
-            .weight(1f)
-            .padding(vertical = 5.dp)
-        ) {
-            Text(
-                text = alarm.label,
-                style = MaterialTheme.typography.bodyLarge,
-                color = color
-            )
-            Text(
-                modifier = modifier.padding(horizontal = 5.dp),
-                text = if (alarm.timeInterval.toInt()>0) "%s every %s min".format(alarm.timeStart,alarm.timeInterval)
-                else "%s no repeat".format(alarm.timeStart),
-                style = MaterialTheme.typography.bodySmall,
-                color = color
-            )
-        }
-
-        if (isEditMode) {
-            Checkbox(
-                checked = checked,
-                onCheckedChange = onChecked
-            )
-        }
-        else {
-            Switch(
-                modifier = Modifier,
-                checked = enabled,
-                onCheckedChange = onEnabled
-            )
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

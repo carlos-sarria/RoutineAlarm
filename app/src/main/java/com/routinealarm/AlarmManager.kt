@@ -130,6 +130,7 @@ object ScheduleNotification {
             pendingIntent
         )
         alarmManager.setAlarmClock(info, pendingIntent)
+//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, milliseconds, pendingIntent)
     }
 
     fun clearAll() {
