@@ -1,6 +1,7 @@
 package com.routinealarm
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -88,7 +89,8 @@ fun AlarmList(
 
     ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
         ) {
             items(
                 items = alarmList,
@@ -101,7 +103,7 @@ fun AlarmList(
                     onEnabled = { enabled -> model.changeAlarmEnabled(alarm, enabled) },
                     onChecked = { checked -> model.changeAlarmChecked(alarm, checked) },
                     modifier = modifier.clickable { onListButtonClicked(alarm.id) },
-                    isEditMode = isEdited
+                    model = model
                 )
             }
         }

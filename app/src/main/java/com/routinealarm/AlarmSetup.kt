@@ -44,39 +44,6 @@ fun AlarmSetup (
 
     Column (modifier = modifier.padding(start = 10.dp, top = 50.dp, end = 10.dp, bottom = 50.dp))
     {
-        // Header with Cancel and Accept buttons
-        Row(modifier = modifier.padding(horizontal = 20.dp, vertical = 5.dp),
-            verticalAlignment = Alignment.CenterVertically)
-        {
-            Icon(Icons.Outlined.Close,
-                contentDescription = "Cancel",
-                modifier = modifier.clickable { onClick(false) })
-
-            Text(
-                modifier = modifier
-                    .padding(horizontal = 5.dp)
-                    .weight(1f),
-                text = "Set Alarm",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.labelSmall,
-            )
-
-            Icon(Icons.Outlined.Check,
-                contentDescription = "Accept",
-                modifier = modifier.clickable {
-                    if(alarmId==-1) model.add(alarm)
-                    else {
-                        model.removeSystemAlarm(model.alarms[alarmId])  // delete previous alarms
-                        model.copy(alarm, model.alarms[alarmId])
-                    }
-                    model.setSystemAlarm(alarm) // set new
-                    model.saveAlarms()
-                    onClick(true)
-
-                }
-            )
-        }
-
         Column(
             modifier = modifier
                 .fillMaxSize()
