@@ -40,7 +40,7 @@ class ViewModel : ViewModel() {
         get() = _alarms // Implement get() for val
 
     fun add() : Alarm {
-        val newAlarm = Alarm(_alarms.size)
+        val newAlarm = Alarm(_alarms.size+1)
         _alarms.add(newAlarm)
         return newAlarm
     }

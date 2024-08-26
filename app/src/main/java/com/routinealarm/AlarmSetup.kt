@@ -28,16 +28,10 @@ import com.routinealarm.helpers.EditType
 @Composable
 fun AlarmSetup (
     modifier: Modifier = Modifier,
-    model : ViewModel,
-    alarmId: Int = 0,
+    alarm: Alarm,
     onDelete: () -> Unit
     )
 {
-    // temporal alarm holder, to be copied on accept
-    val alarm by remember { mutableStateOf(
-        if(alarmId == -1)  Alarm(model.alarms.size)
-        else model.alarms[alarmId]
-    ) }
         Column(
             modifier = modifier
                 .fillMaxSize()

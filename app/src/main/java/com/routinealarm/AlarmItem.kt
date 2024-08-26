@@ -81,7 +81,6 @@ fun AlarmItem (
     enabled: Boolean,
     onEnabled: (Boolean) -> Unit,
     onDeleted: () -> Unit,
-    model : ViewModel
 ) {
     val color : Color = if (enabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.inversePrimary
 
@@ -124,8 +123,7 @@ fun AlarmItem (
         contentExpanded = {
             AlarmSetup (
                 modifier = Modifier,
-                model = model,
-                alarmId = 0,
+                alarm = alarm,
                 onDelete = onDeleted
             )
         }
