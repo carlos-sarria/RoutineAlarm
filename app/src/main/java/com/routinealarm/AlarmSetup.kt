@@ -9,16 +9,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.EditBox
 import com.routinealarm.helpers.EditType
@@ -33,6 +42,34 @@ fun Separator () {
 }
 
 @Composable
+fun RoundButton(
+    text: String = "",
+    enabled : Boolean = true,
+    onClick: () -> Unit
+)
+{
+    val color : Color = if (enabled) MaterialTheme.colorScheme.inversePrimary else MaterialTheme.colorScheme.primaryContainer
+
+    Box(Modifier.padding(2.dp))
+    {
+        Button(
+            modifier = Modifier.size(45.dp, 45.dp),
+            onClick = onClick,
+            colors = ButtonDefaults.buttonColors(containerColor = color),
+            contentPadding = ButtonDefaults.TextButtonContentPadding,
+            shape = RoundedCornerShape(50)
+        ) {
+            Text(
+                textAlign = TextAlign.Start,
+                overflow = TextOverflow.Visible,
+                style = MaterialTheme.typography.bodyLarge,
+                text = text.first().toString()
+            )
+        }
+    }
+}
+
+@Composable
 fun AlarmSetup (
     modifier: Modifier = Modifier,
     alarm: Alarm,
@@ -40,6 +77,8 @@ fun AlarmSetup (
     onUpdated: () -> Unit
     )
 {
+        val scope = currentRecomposeScope
+
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -62,7 +101,7 @@ fun AlarmSetup (
             {
                 EditBox(
                     icon = Icons.Outlined.Refresh,
-                    label = "Interval (minutes)",
+                    label = "Interval",
                     initialText = alarm.timeInterval,
                     type = EditType.NUMERIC,
                     onConfirm = { text: String -> alarm.timeInterval = text; onUpdated() },
@@ -92,6 +131,21 @@ fun AlarmSetup (
                     type = EditType.NUMERIC,
                     onConfirm = { text: String -> alarm.soundRep = text; onUpdated() },
                     onDismiss = {})
+            }
+
+            val weekdays : Array<String> = arrayOf("M", "T", "W", "T", "F", "S", "S")
+            Row()
+            {
+                weekdays.forEachIndexed { i, item ->
+                    RoundButton (text = item,
+                        enabled = alarm.weeklyRep[i],
+                        onClick = {
+                            alarm.weeklyRep[i] = !alarm.weeklyRep[i]
+                            scope.invalidate()
+                            onUpdated()
+                        }
+                    )
+                }
             }
 
             Separator ()
