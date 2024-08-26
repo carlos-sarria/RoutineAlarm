@@ -20,6 +20,13 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp,
         lineHeight = 20.sp,
+        letterSpacing = 0.5.sp,
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp,
+        lineHeight = 20.sp,
         letterSpacing = 0.5.sp
     ),
     bodySmall = TextStyle(

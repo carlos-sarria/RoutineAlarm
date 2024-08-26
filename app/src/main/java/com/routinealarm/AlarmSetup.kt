@@ -1,39 +1,36 @@
 package com.routinealarm
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
+import androidx.compose.material.icons.outlined.Create
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.routinealarm.helpers.ComboBox
-import com.routinealarm.helpers.LineEdit
-import com.routinealarm.helpers.MultipleSelection
-import com.routinealarm.helpers.SoundManager
-import com.routinealarm.helpers.TimeSelect
+import com.routinealarm.helpers.EditBox
+import com.routinealarm.helpers.EditType
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmSetup (
     modifier: Modifier = Modifier,
     model : ViewModel,
     alarmId: Int = 0,
-    onClick: (Boolean) -> Unit
+    onDelete: () -> Unit
     )
 {
     // temporal alarm holder, to be copied on accept
@@ -41,56 +38,68 @@ fun AlarmSetup (
         if(alarmId == -1)  Alarm(model.alarms.size)
         else model.alarms[alarmId]
     ) }
-
-    Column (modifier = modifier.padding(start = 10.dp, top = 50.dp, end = 10.dp, bottom = 50.dp))
-    {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(top = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally)
+                .padding(start = 20.dp, end = 20.dp, top = 5.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.Start)
         {
-            LineEdit(title = "Name", initialText = alarm.label,
-                onChange = { text: String -> alarm.label = text })
+            EditBox(
+                icon = Icons.Outlined.Create,
+                label = "Label", initialText = alarm.label, type = EditType.TEXT,
+                onConfirm = { text: String -> alarm.label = text },
+                onDismiss = {})
 
-            TimeSelect(
-                title = "Time",
-                currentTime = alarm.timeStart,
-                onChange = { time: String -> alarm.timeStart = time })
+            EditBox(
+                icon = Icons.Outlined.DateRange,
+                label = "Start Time", initialText = alarm.timeStart, type = EditType.TIME,
+                onConfirm = { text: String -> alarm.timeStart = text },
+                onDismiss = {})
+            Row()
+            {
+                EditBox(
+                    icon = Icons.Outlined.Refresh,
+                    label = "Interval (minutes)",
+                    initialText = alarm.timeInterval,
+                    type = EditType.NUMERIC,
+                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onDismiss = {})
 
-            LineEdit(
-                title = "Number of Intervals",
-                initialText = if (alarm.numIntervals=="") "0" else alarm.numIntervals,
-                isNumeric = true,
-                onChange = { text: String -> alarm.numIntervals = text })
+                EditBox(
+                    label = "Reps",
+                    initialText = alarm.numIntervals,
+                    type = EditType.NUMERIC,
+                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onDismiss = {})
+            }
+            Row()
+            {
+                EditBox(
+                    label = "Sound",
+                    initialText = alarm.soundName,
+                    type = EditType.COMBO,
+                    list = soundList,
+                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onDismiss = {})
 
-            LineEdit(
-                title = "Time Interval (minutes)",
-                initialText = if (alarm.timeInterval=="") "0" else alarm.timeInterval,
-                isNumeric = true,
-                onChange = { text: String -> alarm.timeInterval = text })
+                EditBox(
+                    label = "Reps",
+                    initialText = alarm.soundRep,
+                    type = EditType.NUMERIC,
+                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onDismiss = {})
+            }
 
-            ComboBox(
-                title = "Sound",
-                list = soundList,
-                selected = alarm.soundName,
-                onChange = { sound: String -> alarm.soundName = sound; SoundManager.play(alarm.soundName, 1) })
+            Box (modifier = modifier.fillMaxWidth().height(1.dp).
+                    background(MaterialTheme.colorScheme.inversePrimary))
 
-            LineEdit(
-                title = "Sound Repetition",
-                initialText = if (alarm.soundRep=="") "0" else alarm.soundRep,
-                isNumeric = true,
-                maximum = 20,
-                onChange = { text: String -> alarm.soundRep = text })
-
-            MultipleSelection(
-                title = "Day Schedule",
-                listNames = arrayOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
-                listStates = alarm.weeklyRep,
-                onChange = { list -> alarm.weeklyRep.copyInto(list)}
-            )
+            EditBox(
+                modifier = modifier.padding(top = 2.dp, bottom = 5.dp),
+                icon = Icons.Outlined.Delete,
+                label = "Delete",
+                type = EditType.NONE,
+                onConfirm = {onDelete()},
+                onDismiss = {})
         }
-
-    }
 }

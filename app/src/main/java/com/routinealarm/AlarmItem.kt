@@ -39,10 +39,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ExpandableSection(
     modifier: Modifier = Modifier,
+    forceExpanded : Boolean = false,
     contentTitle: @Composable () -> Unit,
     contentExpanded: @Composable () -> Unit
 ) {
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by remember { mutableStateOf(forceExpanded) }
     val icon = if (isExpanded) Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown
 
     Column(
@@ -51,7 +52,8 @@ fun ExpandableSection(
             .background(color = MaterialTheme.colorScheme.primaryContainer)
             .fillMaxWidth()
     ) {
-        Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+         Row(modifier = modifier.clickable{isExpanded=!isExpanded},
+            verticalAlignment = Alignment.CenterVertically) {
             Image(
                 modifier = Modifier.size(32.dp),
                 imageVector = icon,
@@ -73,19 +75,19 @@ fun ExpandableSection(
 }
 @Composable
 fun AlarmItem (
-    alarm: Alarm,
-    enabled: Boolean,
-    checked: Boolean,
-    onEnabled: (Boolean) -> Unit,
-    onChecked: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    alarm: Alarm,
+    forceExpanded : Boolean = false,
+    enabled: Boolean,
+    onEnabled: (Boolean) -> Unit,
+    onDeleted: () -> Unit,
     model : ViewModel
 ) {
-    var expanded by remember { mutableStateOf(false) }
     val color : Color = if (enabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.inversePrimary
 
     ExpandableSection(
         modifier = Modifier,
+        forceExpanded = forceExpanded,
         contentTitle = {
             Row(
                 modifier = modifier.padding(vertical = 5.dp),
@@ -124,7 +126,7 @@ fun AlarmItem (
                 modifier = Modifier,
                 model = model,
                 alarmId = 0,
-                onClick = { }
+                onDelete = onDeleted
             )
         }
     )

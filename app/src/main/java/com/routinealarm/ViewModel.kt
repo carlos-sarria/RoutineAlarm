@@ -39,8 +39,10 @@ class ViewModel : ViewModel() {
     val alarms: List<Alarm> // This is to been accessed from outside
         get() = _alarms // Implement get() for val
 
-    fun add(alarm : Alarm) {
-        _alarms.add(alarm)
+    fun add() : Alarm {
+        val newAlarm = Alarm(_alarms.size)
+        _alarms.add(newAlarm)
+        return newAlarm
     }
 
     fun copy(source : Alarm, destination : Alarm) {

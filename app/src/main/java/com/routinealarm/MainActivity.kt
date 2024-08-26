@@ -45,5 +45,9 @@ fun MainWidget(
     modifier: Modifier = Modifier,
     viewModel: ViewModel = viewModel()
 ) {
-    NavigationApp(modifier, viewModel)
+    //NavigationApp(modifier, viewModel)
+    AlarmList(
+        alarmList = viewModel.alarms,
+        model = viewModel
+    )
 }
