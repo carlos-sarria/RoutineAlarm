@@ -13,23 +13,31 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.EditBox
 import com.routinealarm.helpers.EditType
 
+
+@Composable
+fun Separator () {
+    Box(
+        modifier = Modifier.fillMaxWidth().height(1.dp)
+            .background(MaterialTheme.colorScheme.inversePrimary)
+    )
+}
+
 @Composable
 fun AlarmSetup (
     modifier: Modifier = Modifier,
     alarm: Alarm,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onUpdated: () -> Unit
     )
 {
         Column(
@@ -42,13 +50,13 @@ fun AlarmSetup (
             EditBox(
                 icon = Icons.Outlined.Create,
                 label = "Label", initialText = alarm.label, type = EditType.TEXT,
-                onConfirm = { text: String -> alarm.label = text },
+                onConfirm = { text: String -> alarm.label = text; onUpdated() },
                 onDismiss = {})
 
             EditBox(
                 icon = Icons.Outlined.DateRange,
                 label = "Start Time", initialText = alarm.timeStart, type = EditType.TIME,
-                onConfirm = { text: String -> alarm.timeStart = text },
+                onConfirm = { text: String -> alarm.timeStart = text; onUpdated() },
                 onDismiss = {})
             Row()
             {
@@ -57,36 +65,36 @@ fun AlarmSetup (
                     label = "Interval (minutes)",
                     initialText = alarm.timeInterval,
                     type = EditType.NUMERIC,
-                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onConfirm = { text: String -> alarm.timeInterval = text; onUpdated() },
                     onDismiss = {})
 
                 EditBox(
                     label = "Reps",
                     initialText = alarm.numIntervals,
                     type = EditType.NUMERIC,
-                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onConfirm = { text: String -> alarm.numIntervals = text; onUpdated() },
                     onDismiss = {})
             }
             Row()
             {
                 EditBox(
+                    icon = Icons.Outlined.Notifications,
                     label = "Sound",
                     initialText = alarm.soundName,
                     type = EditType.COMBO,
                     list = soundList,
-                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onConfirm = { text: String -> alarm.soundName = text; onUpdated() },
                     onDismiss = {})
 
                 EditBox(
                     label = "Reps",
                     initialText = alarm.soundRep,
                     type = EditType.NUMERIC,
-                    onConfirm = { text: String -> alarm.numIntervals = text },
+                    onConfirm = { text: String -> alarm.soundRep = text; onUpdated() },
                     onDismiss = {})
             }
 
-            Box (modifier = modifier.fillMaxWidth().height(1.dp).
-                    background(MaterialTheme.colorScheme.inversePrimary))
+            Separator ()
 
             EditBox(
                 modifier = modifier.padding(top = 2.dp, bottom = 5.dp),

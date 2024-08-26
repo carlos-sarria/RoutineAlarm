@@ -45,19 +45,6 @@ class ViewModel : ViewModel() {
         return newAlarm
     }
 
-    fun copy(source : Alarm, destination : Alarm) {
-        destination.checked = source.checked
-        destination.enabled  = source.enabled
-        destination.label = source.label
-        destination.timeStart = source.timeStart
-        destination.numIntervals = source.numIntervals
-        destination.timeInterval = source.timeInterval
-        destination.soundName = source.soundName
-        destination.soundRep = source.soundRep
-        destination.requestCode = source.requestCode
-        destination.weeklyRep.copyInto(source.weeklyRep)
-    }
-
     fun deleteChecked(forceAll : Boolean = false) {
         val iterator = _alarms.iterator()
         while (iterator.hasNext()) {
@@ -70,9 +57,6 @@ class ViewModel : ViewModel() {
         saveAlarms()
         if(forceAll) ScheduleNotification.clearAll()
     }
-
-    fun changeAlarmChecked(item: Alarm, checked: Boolean) =
-        _alarms.find { it.id == item.id }?.let { alarm -> alarm.checked = checked; }
 
     fun changeAlarmEnabled(item: Alarm, checked: Boolean) =
         _alarms.find { it.id == item.id }?.let { alarm ->
