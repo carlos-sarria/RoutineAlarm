@@ -133,6 +133,36 @@ fun EditComboDialog(
         }
     }
 }
+@Composable
+fun ConfirmationBox(
+    label : String = "",
+    text : String = "",
+    onConfirm :  () -> Unit = {},
+    onDismiss :  () -> Unit = {},
+) {
+    var shouldDismiss by remember {mutableStateOf(false)}
+    if (shouldDismiss) return
+
+    AlertDialog(
+        title = { Text(text = label) },
+        text = {Text(style = MaterialTheme.typography.bodyLarge, text = text)},
+        onDismissRequest = {shouldDismiss = true},
+        confirmButton = {
+            TextButton(
+                onClick = onConfirm
+            ) {
+                Text("Ok")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss
+            ) {
+                Text("Cancel")
+            }
+        }
+    )
+}
 
 @Composable
 fun EditBox(

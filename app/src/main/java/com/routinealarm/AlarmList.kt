@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import com.routinealarm.helpers.ConfirmationBox
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,6 +44,7 @@ fun AlarmList(
     var expandedId by  remember { mutableStateOf(-1) }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
+    var deleteAll by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -59,10 +61,7 @@ fun AlarmList(
                     ) {
                         DropdownMenuItem(text = { Text(text = "Sort by Label") }, onClick = {})
                         DropdownMenuItem(text = { Text(text = "Sort by Time") }, onClick = {})
-                        DropdownMenuItem(text = { Text(text = "Clear all") }, onClick = {
-                            model.deleteChecked(forceAll = true)
-                            scope.invalidate()
-                        })
+                        DropdownMenuItem(text = { Text(text = "Delete all") }, onClick = {deleteAll = true})
                     }
                 }
             )
@@ -86,6 +85,15 @@ fun AlarmList(
         }
 
     ) { innerPadding ->
+        if(deleteAll) {
+            showMenu = false
+            ConfirmationBox(
+                label = "Delete All",
+                text = " Are you sure you want to delete all alarms?",
+                onConfirm = { model.deleteChecked(forceAll = true); scope.invalidate(); deleteAll = false },
+                onDismiss = {deleteAll = false}
+            )
+        }
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(5.dp),
