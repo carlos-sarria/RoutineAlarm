@@ -73,6 +73,7 @@ fun RoundButton(
 fun AlarmSetup (
     modifier: Modifier = Modifier,
     alarm: Alarm,
+    enabled : Boolean = false,
     onDelete: () -> Unit,
     onUpdated: () -> Unit
     )
@@ -89,12 +90,14 @@ fun AlarmSetup (
             EditBox(
                 icon = Icons.Outlined.Create,
                 label = "Label", initialText = alarm.label, type = EditType.TEXT,
+                enabled = enabled,
                 onConfirm = { text: String -> alarm.label = text; onUpdated() },
                 onDismiss = {})
 
             EditBox(
                 icon = Icons.Outlined.DateRange,
                 label = "Start Time", initialText = alarm.timeStart, type = EditType.TIME,
+                enabled = enabled,
                 onConfirm = { text: String -> alarm.timeStart = text; onUpdated() },
                 onDismiss = {})
             Row()
@@ -104,6 +107,7 @@ fun AlarmSetup (
                     label = "Interval",
                     initialText = alarm.timeInterval,
                     type = EditType.NUMERIC,
+                    enabled = enabled,
                     onConfirm = { text: String -> alarm.timeInterval = text; onUpdated() },
                     onDismiss = {})
 
@@ -111,6 +115,7 @@ fun AlarmSetup (
                     label = "Reps",
                     initialText = alarm.numIntervals,
                     type = EditType.NUMERIC,
+                    enabled = enabled,
                     onConfirm = { text: String -> alarm.numIntervals = text; onUpdated() },
                     onDismiss = {})
             }
@@ -122,6 +127,7 @@ fun AlarmSetup (
                     initialText = alarm.soundName,
                     type = EditType.COMBO,
                     list = soundList,
+                    enabled = enabled,
                     onConfirm = { text: String -> alarm.soundName = text; onUpdated() },
                     onDismiss = {})
 
@@ -129,6 +135,7 @@ fun AlarmSetup (
                     label = "Reps",
                     initialText = alarm.soundRep,
                     type = EditType.NUMERIC,
+                    enabled = enabled,
                     onConfirm = { text: String -> alarm.soundRep = text; onUpdated() },
                     onDismiss = {})
             }
@@ -155,6 +162,7 @@ fun AlarmSetup (
                 icon = Icons.Outlined.Delete,
                 label = "Delete",
                 type = EditType.NONE,
+                enabled = enabled,
                 onConfirm = {onDelete()},
                 onDismiss = {})
         }

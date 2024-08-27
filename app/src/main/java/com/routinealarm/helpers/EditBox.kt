@@ -28,6 +28,7 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.routinealarm.textColor
 
 enum class EditType {
     NONE, TEXT, NUMERIC, TIME, COMBO
@@ -172,6 +173,7 @@ fun EditBox(
     initialText: String = "",
     type: EditType = EditType.NONE,
     list: Array<String> = arrayOf(""),
+    enabled : Boolean = true,
     onDismiss: () -> Unit,
     onConfirm: (String) -> Unit,
 ) {
@@ -186,7 +188,7 @@ fun EditBox(
             Image(
                 modifier = modifier.size(24.dp),
                 imageVector = icon,
-                colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimaryContainer),
+                colorFilter = ColorFilter.tint(textColor(enabled)),
                 contentDescription = "collapsable"
             )
         }
@@ -195,6 +197,7 @@ fun EditBox(
             modifier = modifier.padding(horizontal = 5.dp),
             text = label,
             style = MaterialTheme.typography.bodyLarge,
+            color = textColor(enabled)
         )
         if(initialText != "") {
             Text(
@@ -202,7 +205,7 @@ fun EditBox(
                     .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .padding(horizontal = 5.dp),
                 text = text,
-                color = MaterialTheme.colorScheme.tertiary,
+                color = textColor(enabled),
                 style = MaterialTheme.typography.bodyLarge
             )
         }

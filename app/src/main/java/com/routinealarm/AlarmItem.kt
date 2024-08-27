@@ -27,9 +27,16 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 
 @Composable
+fun textColor(enabled : Boolean) : Color {
+    return if (enabled) MaterialTheme.colorScheme.onBackground
+    else MaterialTheme.colorScheme.inversePrimary
+}
+
+@Composable
 fun ExpandableSection(
     modifier: Modifier = Modifier,
     forceExpanded : Boolean = false,
+    enabled : Boolean = true,
     contentTitle: @Composable () -> Unit,
     contentExpanded: @Composable () -> Unit
 ) {
@@ -47,7 +54,7 @@ fun ExpandableSection(
             Image(
                 modifier = Modifier.size(32.dp),
                 imageVector = icon,
-                colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimaryContainer),
+                colorFilter = ColorFilter.tint(color = textColor(enabled)),
                 contentDescription = "collapsable"
             )
             contentTitle()
@@ -68,16 +75,16 @@ fun AlarmItem (
     modifier: Modifier = Modifier,
     alarm: Alarm,
     forceExpanded : Boolean = false,
-    enabled: Boolean,
-    onEnabled: (Boolean) -> Unit,
+    enabled: Boolean = true,
+    onEnableChanged: (Boolean) -> Unit,
     onDeleted: () -> Unit,
     onUpdated: () -> Unit
 ) {
-    val color : Color = if (enabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.inversePrimary
 
     ExpandableSection(
         modifier = Modifier,
         forceExpanded = forceExpanded,
+        enabled = enabled,
         contentTitle = {
             Row(
                 modifier = modifier.padding(vertical = 5.dp),
@@ -91,7 +98,7 @@ fun AlarmItem (
                         modifier = modifier.padding(horizontal = 5.dp),
                         text = alarm.label,
                         style = MaterialTheme.typography.titleLarge,
-                        color = color
+                        color = textColor(enabled)
                     )
                     Text(
                         modifier = modifier.padding(horizontal = 5.dp),
@@ -101,13 +108,13 @@ fun AlarmItem (
                         )
                         else "%s no repeat".format(alarm.timeStart),
                         style = MaterialTheme.typography.bodySmall,
-                        color = color
+                        color = textColor(enabled)
                     )
                 }
                 Switch(
                     modifier = Modifier.padding(end = 10.dp),
                     checked = enabled,
-                    onCheckedChange = onEnabled
+                    onCheckedChange = onEnableChanged
                 )
             }
         },
@@ -115,6 +122,7 @@ fun AlarmItem (
             AlarmSetup (
                 modifier = Modifier,
                 alarm = alarm,
+                enabled = enabled,
                 onDelete = onDeleted,
                 onUpdated = onUpdated
             )
