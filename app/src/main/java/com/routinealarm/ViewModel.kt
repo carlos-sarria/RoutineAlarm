@@ -1,5 +1,6 @@
 package com.routinealarm
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +44,10 @@ class ViewModel : ViewModel() {
         val newAlarm = Alarm(_alarms.size+1)
         _alarms.add(newAlarm)
         return newAlarm
+    }
+
+    fun sort(useTime : Boolean = false) {
+        _alarms = _alarms.sortedBy {if(useTime) it.timeStart else it.label}.toMutableList();
     }
 
     fun deleteChecked(forceAll : Boolean = false) {

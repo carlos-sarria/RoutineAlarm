@@ -47,7 +47,6 @@ fun MainWidget(
 ) {
     //NavigationApp(modifier, viewModel)
     AlarmList(
-        alarmList = viewModel.alarms,
         model = viewModel
     )
 }

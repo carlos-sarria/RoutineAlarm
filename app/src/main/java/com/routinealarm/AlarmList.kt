@@ -37,7 +37,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun AlarmList(
     model: ViewModel,
-    alarmList : List<Alarm>
 ){
     val scope = currentRecomposeScope
     var showMenu by remember { mutableStateOf(false) }
@@ -59,9 +58,12 @@ fun AlarmList(
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
-                        DropdownMenuItem(text = { Text(text = "Sort by Label") }, onClick = {})
-                        DropdownMenuItem(text = { Text(text = "Sort by Time") }, onClick = {})
-                        DropdownMenuItem(text = { Text(text = "Delete all") }, onClick = {deleteAll = true})
+                        DropdownMenuItem(text = { Text(text = "Sort by Label") },
+                            onClick = {model.sort(useTime=false); scope.invalidate()})
+                        DropdownMenuItem(text = { Text(text = "Sort by Time") },
+                            onClick = {model.sort(useTime=true); scope.invalidate()})
+                        DropdownMenuItem(text = { Text(text = "Delete all") },
+                            onClick = {deleteAll = true})
                     }
                 }
             )
@@ -74,6 +76,7 @@ fun AlarmList(
                 onClick = {
                     expandedId = model.add().id
                     scope.invalidate()
+                    model.saveAlarms()
                     coroutineScope.launch {
                         listState.animateScrollToItem(model.alarms.size)
                     }
@@ -90,7 +93,7 @@ fun AlarmList(
             ConfirmationBox(
                 label = "Delete All",
                 text = " Are you sure you want to delete all alarms?",
-                onConfirm = { model.deleteChecked(forceAll = true); scope.invalidate(); deleteAll = false },
+                onConfirm = { model.deleteChecked(forceAll = true); scope.invalidate(); model.saveAlarms(); deleteAll = false },
                 onDismiss = {deleteAll = false}
             )
         }
@@ -100,8 +103,8 @@ fun AlarmList(
             state = listState
         ) {
             items(
-                items = alarmList,
-                key = { alarm: Alarm -> alarm.id }
+                items = model.alarms,
+                //key = { alarm: Alarm -> alarm.id }
             ) { alarm: Alarm ->
                 AlarmItem(
                     alarm = alarm,
