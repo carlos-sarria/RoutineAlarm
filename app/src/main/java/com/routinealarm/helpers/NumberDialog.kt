@@ -3,12 +3,13 @@ package com.routinealarm.helpers
 import android.util.Log
 import android.widget.NumberPicker
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,30 +25,39 @@ fun NumberDialog(
     onConfirm: (String) -> Unit,
 )
 {
-    val num = text.toIntOrNull()
-    if(numRows<1 || num==null) return
+    if(numRows<1) return
 
-    var editText by rememberSaveable { mutableStateOf(text) }
-
-    var max = 1 // 0-9, 0-99, 0-999, etc...
-    for(i in 0..<numRows) max *= 10
-    max -= 1
+    var n by remember { mutableStateOf(arrayOf<Int>()) }
+    var exp  = 1
+    for (i in 0..<numRows) {
+        n += (text.toInt()/exp)%10 // separate each digit into the array
+        exp *= 10
+    }
 
     DialogWrapper(
-        modifier = Modifier.width(200.dp),
+        modifier = Modifier.width(250.dp),
         onDismiss = onDismiss,
-        onConfirm = {onConfirm(editText)}
+        onConfirm = {
+            var s  = ""
+            for (i in numRows-1 downTo 0) { s += n[i].toString() } // recompose each digit into final string
+            onConfirm(s)
+        }
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SimpleNumberPicker(
-                value = num,
-                min = 0,
-                max = max,
-                onValueChange = { editText = it.toString(); Log.i("NUM",editText)}
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                for (i in (numRows-1) downTo 0) {
+                    Log.i("NUM", i.toString()+" "+n[i].toString())
+                    SimpleNumberPicker(
+                        value = n[i],
+                        onValueChange = { n[i] = it; }
+                    )
+                }
+            }
         }
     }
 }
@@ -60,9 +70,10 @@ fun SimpleNumberPicker(
     onValueChange: (Int) -> Unit
 ) {
     AndroidView(
+        modifier = Modifier.width(20.dp),
         factory = { context ->
             NumberPicker(context).apply {
-                setOnValueChangedListener { _, i, _ -> onValueChange(i) }
+                setOnValueChangedListener { _, _, i -> onValueChange(i) }
                 minValue = min
                 maxValue = max
                 this.value = value
