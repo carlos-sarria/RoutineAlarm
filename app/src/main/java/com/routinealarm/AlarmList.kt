@@ -30,7 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.routinealarm.helpers.ConfirmationBox
+import com.routinealarm.helpers.ConfirmationDialog
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,7 +90,7 @@ fun AlarmList(
     ) { innerPadding ->
         if(deleteAll) {
             showMenu = false
-            ConfirmationBox(
+            ConfirmationDialog(
                 label = "Delete All",
                 text = " Are you sure you want to delete all alarms?",
                 onConfirm = { model.deleteChecked(forceAll = true); scope.invalidate(); model.saveAlarms(); deleteAll = false },
