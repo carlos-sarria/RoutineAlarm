@@ -109,7 +109,6 @@ fun AlarmList(
                 AlarmItem(
                     alarm = alarm,
                     forceExpanded = (alarm.id==expandedId),
-                    enabled = alarm.enabled,
                     onEnableChanged = { enabled -> model.changeAlarmEnabled(alarm, enabled) },
                     onDeleted = { alarm.checked = true; model.deleteChecked();scope.invalidate()},
                     onUpdated = { model.saveAlarms() }

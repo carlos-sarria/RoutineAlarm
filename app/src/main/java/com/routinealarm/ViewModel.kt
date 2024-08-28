@@ -1,6 +1,5 @@
 package com.routinealarm
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -16,8 +15,8 @@ data class Alarm (var id: Int)
     var enabled by mutableStateOf(true)
     var label by mutableStateOf("Alarm_%03d".format(id))
     var timeStart by mutableStateOf("08:00")
-    var numIntervals by mutableStateOf("0")
-    var timeInterval by mutableStateOf("0")
+    var timeInterval by mutableStateOf("123")
+    var numIntervals by mutableStateOf("12")
     var soundName by mutableStateOf("chime")
     var soundRep by mutableStateOf("1")
     var requestCode by mutableIntStateOf(Random.nextInt(0, MAX_VALUE))
@@ -47,7 +46,7 @@ class ViewModel : ViewModel() {
     }
 
     fun sort(useTime : Boolean = false) {
-        _alarms = _alarms.sortedBy {if(useTime) it.timeStart else it.label}.toMutableList();
+        _alarms = _alarms.sortedBy {if(useTime) it.timeStart else it.label}.toMutableList()
     }
 
     fun deleteChecked(forceAll : Boolean = false) {

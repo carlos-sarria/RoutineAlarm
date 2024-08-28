@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RoutineAlarmTheme {
-                MainWidget(modifier = Modifier)
+                MainWidget()
             }
         }
         appContext = this
@@ -42,10 +42,8 @@ fun MainActivityPreview() {
 
 @Composable
 fun MainWidget(
-    modifier: Modifier = Modifier,
     viewModel: ViewModel = viewModel()
 ) {
-    //NavigationApp(modifier, viewModel)
     AlarmList(
         model = viewModel
     )

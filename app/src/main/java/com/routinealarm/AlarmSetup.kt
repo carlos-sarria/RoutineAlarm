@@ -107,6 +107,7 @@ fun AlarmSetup (
                     label = "Interval",
                     initialText = alarm.timeInterval,
                     type = EditType.NUMERIC,
+                    numRows = 3,
                     enabled = enabled,
                     onConfirm = { text: String -> alarm.timeInterval = text; onUpdated() },
                     onDismiss = {})
@@ -115,6 +116,7 @@ fun AlarmSetup (
                     label = "Reps",
                     initialText = alarm.numIntervals,
                     type = EditType.NUMERIC,
+                    numRows = 2,
                     enabled = enabled,
                     onConfirm = { text: String -> alarm.numIntervals = text; onUpdated() },
                     onDismiss = {})
@@ -135,6 +137,7 @@ fun AlarmSetup (
                     label = "Reps",
                     initialText = alarm.soundRep,
                     type = EditType.NUMERIC,
+                    numRows = 1,
                     enabled = enabled,
                     onConfirm = { text: String -> alarm.soundRep = text; onUpdated() },
                     onDismiss = {})

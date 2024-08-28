@@ -36,7 +36,7 @@ fun textColor(enabled : Boolean) : Color {
 fun ExpandableSection(
     modifier: Modifier = Modifier,
     forceExpanded : Boolean = false,
-    enabled : Boolean = true,
+    enabled: Boolean = true,
     contentTitle: @Composable () -> Unit,
     contentExpanded: @Composable () -> Unit
 ) {
@@ -75,7 +75,6 @@ fun AlarmItem (
     modifier: Modifier = Modifier,
     alarm: Alarm,
     forceExpanded : Boolean = false,
-    enabled: Boolean = true,
     onEnableChanged: (Boolean) -> Unit,
     onDeleted: () -> Unit,
     onUpdated: () -> Unit
@@ -84,7 +83,7 @@ fun AlarmItem (
     ExpandableSection(
         modifier = Modifier,
         forceExpanded = forceExpanded,
-        enabled = enabled,
+        enabled = alarm.enabled,
         contentTitle = {
             Row(
                 modifier = modifier.padding(vertical = 5.dp),
@@ -98,7 +97,7 @@ fun AlarmItem (
                         modifier = modifier.padding(horizontal = 5.dp),
                         text = alarm.label,
                         style = MaterialTheme.typography.titleLarge,
-                        color = textColor(enabled)
+                        color = textColor(alarm.enabled)
                     )
                     Text(
                         modifier = modifier.padding(horizontal = 5.dp),
@@ -108,12 +107,12 @@ fun AlarmItem (
                         )
                         else "%s no repeat".format(alarm.timeStart),
                         style = MaterialTheme.typography.bodySmall,
-                        color = textColor(enabled)
+                        color = textColor(alarm.enabled)
                     )
                 }
                 Switch(
                     modifier = Modifier.padding(end = 10.dp),
-                    checked = enabled,
+                    checked = alarm.enabled,
                     onCheckedChange = onEnableChanged
                 )
             }
@@ -122,7 +121,7 @@ fun AlarmItem (
             AlarmSetup (
                 modifier = Modifier,
                 alarm = alarm,
-                enabled = enabled,
+                enabled = alarm.enabled,
                 onDelete = onDeleted,
                 onUpdated = onUpdated
             )
