@@ -44,22 +44,25 @@ fun Separator () {
 @Composable
 fun RoundButton(
     text: String = "",
+    selected : Boolean = true,
     enabled : Boolean = true,
     onClick: () -> Unit
 )
 {
-    val color : Color = if (enabled) MaterialTheme.colorScheme.inversePrimary else MaterialTheme.colorScheme.primaryContainer
+    val buttonColor : Color = if (selected) MaterialTheme.colorScheme.primaryContainer
+                        else MaterialTheme.colorScheme.secondaryContainer
 
     Box(Modifier.padding(2.dp))
     {
         Button(
             modifier = Modifier.size(45.dp, 45.dp),
             onClick = onClick,
-            colors = ButtonDefaults.buttonColors(containerColor = color),
+            colors = ButtonDefaults.buttonColors(containerColor = buttonColor),
             contentPadding = ButtonDefaults.TextButtonContentPadding,
             shape = RoundedCornerShape(50)
         ) {
             Text(
+                color = textColor(enabled),
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Visible,
                 style = MaterialTheme.typography.bodyLarge,
@@ -83,7 +86,7 @@ fun AlarmSetup (
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp, top = 5.dp),
+                .padding(start = 20.dp, end = 20.dp, top = 10.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.Start)
         {
@@ -148,7 +151,8 @@ fun AlarmSetup (
             {
                 weekdays.forEachIndexed { i, item ->
                     RoundButton (text = item,
-                        enabled = alarm.weeklyRep[i],
+                        selected = alarm.weeklyRep[i],
+                        enabled  = enabled,
                         onClick = {
                             alarm.weeklyRep[i] = !alarm.weeklyRep[i]
                             scope.invalidate()

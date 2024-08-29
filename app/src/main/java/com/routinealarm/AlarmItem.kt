@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun textColor(enabled : Boolean) : Color {
-    return if (enabled) MaterialTheme.colorScheme.onBackground
+    return if (enabled) MaterialTheme.colorScheme.onSecondary
     else MaterialTheme.colorScheme.inversePrimary
 }
 

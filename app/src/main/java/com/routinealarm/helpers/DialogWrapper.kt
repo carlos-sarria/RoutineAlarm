@@ -18,14 +18,17 @@ fun DialogWrapper(
     AlertDialog(
         modifier = modifier,
         onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {
-                Text(style = MaterialTheme.typography.bodyLarge, text = "Dismiss")
+                Text(color = MaterialTheme.colorScheme.onSurface,
+                    text = "Dismiss")
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
-                Text(style = MaterialTheme.typography.bodyLarge, text = "OK")
+                Text(color = MaterialTheme.colorScheme.onSurface,
+                    text = "OK")
             }
         },
         properties = DialogProperties(usePlatformDefaultWidth = false),
