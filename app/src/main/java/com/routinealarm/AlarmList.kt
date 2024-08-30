@@ -1,7 +1,5 @@
 package com.routinealarm
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -49,7 +47,6 @@ fun AlarmList(
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var deleteAll by remember { mutableStateOf(false) }
-    val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM, HH:mm"))
 
     Scaffold(
         topBar = {
@@ -123,7 +120,7 @@ fun AlarmList(
                     alarm = alarm,
                     forceExpanded = (alarm.id==expandedId),
                     onEnableChanged = { enabled -> model.changeAlarmEnabled(alarm, enabled) },
-                    onDeleted = { alarm.checked = true; model.deleteChecked();scope.invalidate()},
+                    onDeleted = { alarm.checked = true; model.deleteChecked(); scope.invalidate()},
                     onUpdated = { model.setSystemAlarm(alarm); model.saveAlarms() }
                 )
             }

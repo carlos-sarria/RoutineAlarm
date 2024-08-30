@@ -34,6 +34,7 @@ class ViewModel : ViewModel() {
 
     init {
         loadAlarms()
+        _alarms.forEach { alarm -> setSystemAlarm(alarm); } // Set all alarms at start-up
     }
 
     val alarms: List<Alarm> // This is to been accessed from outside
@@ -51,7 +52,7 @@ class ViewModel : ViewModel() {
 
     fun deleteChecked(forceAll : Boolean = false) {
         val iterator = _alarms.iterator()
-        while (iterator.hasNext()) {
+        while (iterator.hasNext()) { // Safe item deletion from mutable list
             val element = iterator.next()
             if (element.checked || forceAll) {
                 iterator.remove()

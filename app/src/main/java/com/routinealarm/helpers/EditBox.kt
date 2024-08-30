@@ -38,7 +38,7 @@ fun EditBox(
     onConfirm: (String) -> Unit,
 ) {
     var openDialog by remember { mutableStateOf(false) }
-    var text by rememberSaveable { mutableStateOf(initialText) }
+    var text by remember { mutableStateOf(initialText) }
 
     Row(modifier = modifier.clickable {
         if(type == EditType.NONE) onConfirm("")
