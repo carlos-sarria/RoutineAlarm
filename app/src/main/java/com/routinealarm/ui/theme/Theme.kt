@@ -2,41 +2,22 @@ package com.routinealarm.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Cyan8, // button background
-    onPrimary = White, // button text
-    onSecondary = White, // all text
-    onTertiary = Cyan3, // text variant
-    primaryContainer = Grey8, // card and floating button background
-    inversePrimary = Grey5, // disabled Text
-    secondaryContainer = Grey7, // options background
-    tertiaryContainer = Grey8, // edit box background
-    onSurface = White, // topBar and card and all text
-    inverseOnSurface = White, // Floating button and dialog text
-    outlineVariant = White, // Edit text
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Magenta5, // button background
-    onPrimary = White, // button text
-    onSecondary = Black, // all text
-    onTertiary = Magenta5, // text variant
-    primaryContainer = Grey1, // card and floating button background
-    inversePrimary = Grey3, // disabled Text
-    secondaryContainer = Grey0, // options background
-    tertiaryContainer = Grey2, // edit box background
-    onSurface = Black, // topBar and card and all text
-    inverseOnSurface = Magenta5, // Floating button and dialog text
-    outlineVariant = Black, // Edit text
-)
+val ColorScheme.cBackground: Color @Composable get() = if(isSystemInDarkTheme()) Grey8 else Grey1
+val ColorScheme.cText: Color @Composable get() = if(isSystemInDarkTheme()) White else Black
+val ColorScheme.cTextVariant: Color @Composable get() = if(isSystemInDarkTheme()) Cyan3 else Magenta5
+val ColorScheme.cTextDisabled: Color @Composable get() = if(isSystemInDarkTheme()) Grey5 else Grey3
+val ColorScheme.cBackgroundDialog: Color @Composable get() = if(isSystemInDarkTheme()) Grey7 else Grey0
+val ColorScheme.cThumb: Color @Composable get() = if(isSystemInDarkTheme()) Cyan10 else White
 
 @Composable
 fun RoutineAlarmTheme(
@@ -50,8 +31,8 @@ fun RoutineAlarmTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> darkColorScheme()
+        else -> lightColorScheme()
     }
 
     MaterialTheme(

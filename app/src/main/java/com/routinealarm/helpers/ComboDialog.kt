@@ -12,6 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.routinealarm.ui.theme.cBackgroundDialog
+import com.routinealarm.ui.theme.cTextVariant
 
 @Composable
 fun ComboDialog(
@@ -27,14 +29,14 @@ fun ComboDialog(
     Surface(
     ) {
         DropdownMenu(
-            modifier = Modifier.background(MaterialTheme.colorScheme.secondaryContainer),
+            modifier = Modifier.background(MaterialTheme.colorScheme.cBackgroundDialog),
             expanded = expanded,
             onDismissRequest = { expanded = false; onDismiss() }
         )
         {
             list.forEach { item ->
                 DropdownMenuItem(
-                    text = { Text(color=MaterialTheme.colorScheme.onTertiary, text = item) },
+                    text = { Text(color=MaterialTheme.colorScheme.cTextVariant, text = item) },
                     onClick = {
                         selectedText = item
                         onConfirm(selectedText)

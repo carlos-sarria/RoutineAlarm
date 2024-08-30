@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.routinealarm.ui.theme.cTextVariant
 
 @Composable
 fun NumberDialog(
@@ -70,7 +71,7 @@ fun SimpleNumberPicker(
     max: Int = 9,
     onValueChange: (Int) -> Unit
 ) {
-    val color = MaterialTheme.colorScheme.onTertiary.toArgb()
+    val color = MaterialTheme.colorScheme.cTextVariant.toArgb()
 
     AndroidView(
         modifier = Modifier.width(20.dp),

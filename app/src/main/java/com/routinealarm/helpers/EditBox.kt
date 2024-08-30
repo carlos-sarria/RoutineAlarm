@@ -19,6 +19,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.routinealarm.textColor
+import com.routinealarm.ui.theme.cBackground
+import com.routinealarm.ui.theme.cBackgroundDialog
+import com.routinealarm.ui.theme.cBackgroundVariant
+import com.routinealarm.ui.theme.cTextVariant
 
 enum class EditType {
     NONE, TEXT, NUMERIC, TIME, COMBO
@@ -62,10 +66,10 @@ fun EditBox(
         if(initialText != "") {
             Text(
                 modifier = modifier
-                    .background(MaterialTheme.colorScheme.tertiaryContainer)
+                    .background(MaterialTheme.colorScheme.cBackground)
                     .padding(horizontal = 5.dp),
                 text = text,
-                color = textColor(enabled, MaterialTheme.colorScheme.onTertiary),
+                color = textColor(enabled, MaterialTheme.colorScheme.cTextVariant),
                 style = MaterialTheme.typography.bodyLarge
             )
         }

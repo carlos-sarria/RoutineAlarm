@@ -7,6 +7,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.DialogProperties
+import com.routinealarm.ui.theme.cBackgroundDialog
+import com.routinealarm.ui.theme.cTextVariant
 
 @Composable
 fun DialogWrapper(
@@ -16,18 +18,18 @@ fun DialogWrapper(
     content: @Composable () -> Unit
 ) {
     AlertDialog(
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        containerColor = MaterialTheme.colorScheme.cBackgroundDialog,
         modifier = modifier,
         onDismissRequest = onDismiss,
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {
-                Text(color = MaterialTheme.colorScheme.onTertiary,
+                Text(color = MaterialTheme.colorScheme.cTextVariant,
                     text = "Dismiss")
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
-                Text(color = MaterialTheme.colorScheme.onTertiary,
+                Text(color = MaterialTheme.colorScheme.cTextVariant,
                     text = "OK")
             }
         },

@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.ConfirmationDialog
+import com.routinealarm.ui.theme.cBackground
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -64,7 +65,6 @@ fun AlarmList(
                         Icon(imageVector = Icons.Default.MoreVert, contentDescription = "")
                     }
                     DropdownMenu(
-                        //modifier = Modifier.background(color = MaterialTheme.colorScheme.tertiaryContainer),
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
@@ -81,7 +81,7 @@ fun AlarmList(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
             FloatingActionButton(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                containerColor = MaterialTheme.colorScheme.cBackground,
                 shape = CircleShape,
                 onClick = {
                     expandedId = model.add().id

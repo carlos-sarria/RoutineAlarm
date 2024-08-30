@@ -31,13 +31,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.EditBox
 import com.routinealarm.helpers.EditType
+import com.routinealarm.ui.theme.cBackground
+import com.routinealarm.ui.theme.cBackgroundDialog
+import com.routinealarm.ui.theme.cTextDisabled
 
 
 @Composable
 fun Separator () {
     Box(
         modifier = Modifier.fillMaxWidth().height(1.dp)
-            .background(MaterialTheme.colorScheme.inversePrimary)
+            .background(MaterialTheme.colorScheme.cTextDisabled)
     )
 }
 
@@ -49,8 +52,8 @@ fun RoundButton(
     onClick: () -> Unit
 )
 {
-    val buttonColor : Color = if (selected) MaterialTheme.colorScheme.primaryContainer
-                        else MaterialTheme.colorScheme.secondaryContainer
+    val buttonColor : Color = if (selected) MaterialTheme.colorScheme.cBackground
+                        else MaterialTheme.colorScheme.cBackgroundDialog
 
     Box(Modifier.padding(2.dp))
     {

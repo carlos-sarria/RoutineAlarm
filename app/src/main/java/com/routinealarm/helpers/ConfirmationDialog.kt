@@ -9,6 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.routinealarm.ui.theme.cBackgroundDialog
+import com.routinealarm.ui.theme.cTextVariant
 
 @Composable
 fun ConfirmationDialog(
@@ -21,7 +23,7 @@ fun ConfirmationDialog(
     if (shouldDismiss) return
 
     AlertDialog(
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        containerColor = MaterialTheme.colorScheme.cBackgroundDialog,
         title = { Text(text = label) },
         text = { Text(style = MaterialTheme.typography.bodyLarge, text = text) },
         onDismissRequest = {shouldDismiss = true},
@@ -29,14 +31,14 @@ fun ConfirmationDialog(
             TextButton(
                 onClick = onConfirm
             ) {
-                Text(color = MaterialTheme.colorScheme.onTertiary,text = "Ok")
+                Text(color = MaterialTheme.colorScheme.cTextVariant,text = "Ok")
             }
         },
         dismissButton = {
             TextButton(
                 onClick = onDismiss
             ) {
-                Text(color = MaterialTheme.colorScheme.onTertiary,text = "Cancel")
+                Text(color = MaterialTheme.colorScheme.cTextVariant,text = "Cancel")
             }
         }
     )

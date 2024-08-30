@@ -14,6 +14,8 @@ import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchColors
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,11 +27,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
+import com.routinealarm.ui.theme.White
+import com.routinealarm.ui.theme.cBackground
+import com.routinealarm.ui.theme.cBackgroundDialog
+import com.routinealarm.ui.theme.cBackgroundVariant
+import com.routinealarm.ui.theme.cText
+import com.routinealarm.ui.theme.cTextDisabled
+import com.routinealarm.ui.theme.cTextVariant
+import com.routinealarm.ui.theme.cThumb
 
 @Composable
-fun textColor(enabled : Boolean, color : Color = MaterialTheme.colorScheme.onSecondary) : Color {
+fun textColor(enabled : Boolean, color : Color = MaterialTheme.colorScheme.cText) : Color {
     return if (enabled) color
-    else MaterialTheme.colorScheme.inversePrimary
+    else MaterialTheme.colorScheme.cTextDisabled
 }
 
 @Composable
@@ -46,7 +56,7 @@ fun ExpandableSection(
     Column(
         modifier = modifier
             .clickable { isExpanded = !isExpanded }
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
+            .background(color = MaterialTheme.colorScheme.cBackground)
             .fillMaxWidth()
     ) {
          Row(modifier = modifier.clickable{isExpanded=!isExpanded},
@@ -62,7 +72,7 @@ fun ExpandableSection(
 
         AnimatedVisibility(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.secondaryContainer)
+                .background(MaterialTheme.colorScheme.cBackgroundDialog)
                 .fillMaxWidth(),
             visible = isExpanded
         ) {
@@ -113,6 +123,10 @@ fun AlarmItem (
                 Switch(
                     modifier = Modifier.padding(end = 10.dp),
                     checked = alarm.enabled,
+                    colors = SwitchDefaults.colors(
+                        checkedTrackColor = MaterialTheme.colorScheme.cTextVariant,
+                        checkedThumbColor = MaterialTheme.colorScheme.cThumb
+                    ),
                     onCheckedChange = onEnableChanged
                 )
             }
