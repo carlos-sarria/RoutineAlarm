@@ -16,18 +16,18 @@ fun DialogWrapper(
     content: @Composable () -> Unit
 ) {
     AlertDialog(
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
         modifier = modifier,
         onDismissRequest = onDismiss,
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {
-                Text(color = MaterialTheme.colorScheme.onSurface,
+                Text(color = MaterialTheme.colorScheme.onTertiary,
                     text = "Dismiss")
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
-                Text(color = MaterialTheme.colorScheme.onSurface,
+                Text(color = MaterialTheme.colorScheme.onTertiary,
                     text = "OK")
             }
         },

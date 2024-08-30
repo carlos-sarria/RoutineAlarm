@@ -1,6 +1,9 @@
 package com.routinealarm
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -32,6 +35,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.ConfirmationDialog
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,17 +49,25 @@ fun AlarmList(
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var deleteAll by remember { mutableStateOf(false) }
+    val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM, HH:mm"))
 
     Scaffold(
         topBar = {
             TopAppBar(
                 modifier = Modifier.shadow(elevation = 8.dp),
-                title = { Text(text = "Routine Alarm") },
+                title = {
+                    Row()
+                    {
+                        Text(text = "Routine Alarm")
+                        //Text(style = MaterialTheme.typography.labelMedium, text = "$dateTime")
+                    }
+                        },
                 actions = {
                     IconButton(onClick = { showMenu = !showMenu }) {
                         Icon(imageVector = Icons.Default.MoreVert, contentDescription = "")
                     }
                     DropdownMenu(
+                        //modifier = Modifier.background(color = MaterialTheme.colorScheme.tertiaryContainer),
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
@@ -111,7 +124,7 @@ fun AlarmList(
                     forceExpanded = (alarm.id==expandedId),
                     onEnableChanged = { enabled -> model.changeAlarmEnabled(alarm, enabled) },
                     onDeleted = { alarm.checked = true; model.deleteChecked();scope.invalidate()},
-                    onUpdated = { model.saveAlarms() }
+                    onUpdated = { model.setSystemAlarm(alarm); model.saveAlarms() }
                 )
             }
         }

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +20,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
 fun NumberDialog(
-    label : String = "",
     text : String = "0",
     numRows : Int = 3,
     onDismiss: () -> Unit,
@@ -71,7 +70,7 @@ fun SimpleNumberPicker(
     max: Int = 9,
     onValueChange: (Int) -> Unit
 ) {
-    val color = colorScheme.onBackground.toArgb()
+    val color = MaterialTheme.colorScheme.onTertiary.toArgb()
 
     AndroidView(
         modifier = Modifier.width(20.dp),

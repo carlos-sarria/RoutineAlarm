@@ -37,7 +37,7 @@ fun ComboDialog(
         {
             list.forEach { item ->
                 DropdownMenuItem(
-                    text = { Text(text = item) },
+                    text = { Text(color=MaterialTheme.colorScheme.onTertiary, text = item) },
                     onClick = {
                         selectedText = item
                         onConfirm(selectedText)

@@ -16,7 +16,8 @@ import java.util.Calendar
 import java.util.Date
 import com.routinealarm.ViewModel as appViewModel
 
-const val RMNDRNOTITITLEKEY : String = "RoutineAlarm"
+internal const val RMNDRNOTITITLEKEY = "RoutineAlarm"
+internal const val MILLISECONDS24HOURS = 86400000L
 
 fun getExactTime(hour: Int, minute: Int): Long {
     val calendar = Calendar.getInstance()
@@ -54,7 +55,7 @@ fun getNextAlarm(requestCode : Int) : Long {
 
     if(alarmTime < currentTime &&  (alarmTime +(numIntervals * intervalLength)) < currentTime)
     {
-        alarmTime += (24*60*60*1000) // Add one day because alarm is set in the past
+        alarmTime += MILLISECONDS24HOURS// Add one day because alarm is set in the past
     }
 
     if (intervalLength > 0 && numIntervals > 0) {
@@ -69,7 +70,7 @@ fun getNextAlarm(requestCode : Int) : Long {
         {
             val nextDay : Int = (today + dayCount + 1) % 7
             if(alarm.weeklyRep[nextDay]){
-                returnTime = alarmTime + nextDay * (24*60*60*1000)
+                returnTime = alarmTime + nextDay * MILLISECONDS24HOURS
                 break
             }
             dayCount++

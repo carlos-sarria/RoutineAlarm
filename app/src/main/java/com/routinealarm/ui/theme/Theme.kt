@@ -16,6 +16,7 @@ private val DarkColorScheme = darkColorScheme(
     primary = Cyan8, // button background
     onPrimary = White, // button text
     onSecondary = White, // all text
+    onTertiary = Cyan3, // text variant
     primaryContainer = Grey8, // card and floating button background
     inversePrimary = Grey5, // disabled Text
     secondaryContainer = Grey7, // options background
@@ -29,12 +30,13 @@ private val LightColorScheme = lightColorScheme(
     primary = Magenta5, // button background
     onPrimary = White, // button text
     onSecondary = Black, // all text
+    onTertiary = Magenta5, // text variant
     primaryContainer = Grey1, // card and floating button background
     inversePrimary = Grey3, // disabled Text
     secondaryContainer = Grey0, // options background
-    tertiaryContainer = Grey1, // edit box background
+    tertiaryContainer = Grey2, // edit box background
     onSurface = Black, // topBar and card and all text
-    inverseOnSurface = Black, // Floating button and dialog text
+    inverseOnSurface = Magenta5, // Floating button and dialog text
     outlineVariant = Black, // Edit text
 )
 

@@ -65,7 +65,7 @@ fun EditBox(
                     .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .padding(horizontal = 5.dp),
                 text = text,
-                color = textColor(enabled),
+                color = textColor(enabled, MaterialTheme.colorScheme.onTertiary),
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -79,7 +79,7 @@ fun EditBox(
             )
         }
         if (type == EditType.NUMERIC) {
-            NumberDialog(label, text, numRows,
+            NumberDialog(text, numRows,
                 { openDialog = false; onDismiss() },
                 { openDialog = false; text = it; onConfirm(text) }
             )

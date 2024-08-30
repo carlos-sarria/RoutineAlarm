@@ -27,8 +27,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun textColor(enabled : Boolean) : Color {
-    return if (enabled) MaterialTheme.colorScheme.onSecondary
+fun textColor(enabled : Boolean, color : Color = MaterialTheme.colorScheme.onSecondary) : Color {
+    return if (enabled) color
     else MaterialTheme.colorScheme.inversePrimary
 }
 
@@ -103,7 +103,7 @@ fun AlarmItem (
                         modifier = modifier.padding(horizontal = 5.dp),
                         text = if (alarm.timeInterval.toInt() > 0) "%s every %s min".format(
                             alarm.timeStart,
-                            alarm.timeInterval
+                            alarm.timeInterval.replaceFirst (regex = Regex("^0+"), "")
                         )
                         else "%s no repeat".format(alarm.timeStart),
                         style = MaterialTheme.typography.bodySmall,
