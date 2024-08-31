@@ -58,7 +58,7 @@ fun RoundButton(
     Box(Modifier.padding(2.dp))
     {
         Button(
-            modifier = Modifier.size(45.dp, 45.dp),
+            modifier = Modifier.size(40.dp, 40.dp),
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(containerColor = buttonColor),
             contentPadding = ButtonDefaults.TextButtonContentPadding,

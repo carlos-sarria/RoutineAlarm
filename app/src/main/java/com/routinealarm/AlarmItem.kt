@@ -14,7 +14,6 @@ import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,10 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.routinealarm.ui.theme.White
 import com.routinealarm.ui.theme.cBackground
 import com.routinealarm.ui.theme.cBackgroundDialog
-import com.routinealarm.ui.theme.cBackgroundVariant
 import com.routinealarm.ui.theme.cText
 import com.routinealarm.ui.theme.cTextDisabled
 import com.routinealarm.ui.theme.cTextVariant

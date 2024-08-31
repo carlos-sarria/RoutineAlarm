@@ -53,7 +53,6 @@ fun NumberDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 for (i in (numRows-1) downTo 0) {
-                    Log.i("NUM", i.toString()+" "+n[i].toString())
                     SimpleNumberPicker(
                         value = n[i],
                         onValueChange = { n[i] = it; }

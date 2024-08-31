@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -82,11 +83,12 @@ fun getNextAlarm(requestCode : Int) : Long {
     return returnTime
 }
 
+var playSound by mutableStateOf(true)
+
 object ScheduleNotification {
 
-    var firstTimeAlarm: Boolean by  mutableStateOf(false)
-
     private fun getIntent (requestCode : Int) : PendingIntent {
+
         val intent = Intent(appContext.applicationContext, ReminderReceiver::class.java)
         intent.setAction("RoutineAlarm")
 
@@ -107,16 +109,11 @@ object ScheduleNotification {
         minute: Int,
         requestCode : Int
     ) {
-        val pendingIntent = getIntent(requestCode)
-        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        // When the alarm is set in the past needs to be triggered now, but the sound should not play
+        val alarmTime = getExactTime(hour, minute)
+        if(alarmTime < getCurrentTime()) playSound = false
 
-        firstTimeAlarm = true
-
-        val info : AlarmManager.AlarmClockInfo = AlarmManager.AlarmClockInfo(
-            getExactTime(hour, minute) ,
-            pendingIntent
-        )
-        alarmManager.setAlarmClock(info, pendingIntent)
+        schedule(getExactTime(hour, minute), requestCode)
     }
 
     fun schedule(
@@ -130,6 +127,7 @@ object ScheduleNotification {
             milliseconds,
             pendingIntent
         )
+
         alarmManager.setAlarmClock(info, pendingIntent)
 //        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, milliseconds, pendingIntent)
     }
@@ -168,12 +166,9 @@ class ReminderNotification {
         if(nextAlarmMilliseconds>0) ScheduleNotification.schedule(nextAlarmMilliseconds, requestCode)
 
         // Sound alarm
-        val soundAlarm : Boolean = !ScheduleNotification.firstTimeAlarm
-        if(soundAlarm) {
+        if (playSound)
             SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
-        }
-        else{
-            ScheduleNotification.firstTimeAlarm = false
-        }
+        else
+            playSound = true
     }
 }

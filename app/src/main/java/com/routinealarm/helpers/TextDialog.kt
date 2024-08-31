@@ -28,7 +28,7 @@ fun TextDialog(
         OutlinedTextField(
             value = editText,
             singleLine = true,
-            onValueChange = { editText = it; onConfirm(it) },
+            onValueChange = { editText = it; },
             label = { Text(label) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = if (isNumeric) KeyboardType.Number else KeyboardType.Text
