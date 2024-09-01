@@ -5,12 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.routinealarm.GlobalData.Companion.appContext
 import com.routinealarm.helpers.Prefs
 import com.routinealarm.helpers.SoundManager
 import com.routinealarm.ui.theme.RoutineAlarmTheme
+
+class GlobalData {
+    companion object {
+        lateinit var appContext: MainActivity
+        lateinit var appViewModel: ViewModel
+    }
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +33,6 @@ class MainActivity : ComponentActivity() {
         SoundManager.init(appContext)
     }
 
-    companion object {
-        lateinit var appContext: MainActivity
-            private set
-    }
 }
 
 @Preview(showBackground = true, widthDp = 480, heightDp = 900)
@@ -44,6 +47,7 @@ fun MainActivityPreview() {
 fun MainWidget(
     viewModel: ViewModel = viewModel()
 ) {
+    GlobalData.appViewModel = viewModel
     AlarmList(
         model = viewModel
     )

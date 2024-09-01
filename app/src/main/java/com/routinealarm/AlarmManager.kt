@@ -8,14 +8,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import com.routinealarm.MainActivity.Companion.appContext
+import com.routinealarm.GlobalData.Companion.appContext
+import com.routinealarm.GlobalData.Companion.appViewModel
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
 import java.util.Date
-import com.routinealarm.ViewModel as appViewModel
 
 internal const val RMNDRNOTITITLEKEY = "RoutineAlarm"
 internal const val MILLISECONDS24HOURS = 86400000L
@@ -44,7 +41,7 @@ fun getCurrentWeekDay () : Int {
 }
 
 fun getNextAlarm(requestCode : Int) : Long {
-    val alarm : Alarm? = appViewModel().alarms.find { alarm -> alarm.requestCode == requestCode }
+    val alarm : Alarm? = appViewModel.alarms.find { alarm -> alarm.requestCode == requestCode }
     if(alarm == null) return 0
 
     var alarmTime = getExactTime(hour(alarm.timeStart), minute(alarm.timeStart))
@@ -83,9 +80,9 @@ fun getNextAlarm(requestCode : Int) : Long {
     return returnTime
 }
 
-var playSound by mutableStateOf(true)
-
 object ScheduleNotification {
+
+    var playSound : Boolean = true
 
     private fun getIntent (requestCode : Int) : PendingIntent {
 
@@ -112,7 +109,6 @@ object ScheduleNotification {
         // When the alarm is set in the past needs to be triggered now, but the sound should not play
         val alarmTime = getExactTime(hour, minute)
         if(alarmTime < getCurrentTime()) playSound = false
-
         schedule(getExactTime(hour, minute), requestCode)
     }
 
@@ -157,18 +153,19 @@ class ReminderReceiver : BroadcastReceiver() {
 class ReminderNotification {
 
     fun playScheduledSound(requestCode: Int) {
-        val alarm : Alarm? = appViewModel().alarms.find { alarm -> alarm.requestCode == requestCode }
+        val alarm : Alarm? = appViewModel.alarms.find { alarm -> alarm.requestCode == requestCode }
         if(alarm == null) return
 
         // Delete current alarm and add next alarm
         ScheduleNotification.clear(requestCode)
         val nextAlarmMilliseconds = getNextAlarm(requestCode)
-        if(nextAlarmMilliseconds>0) ScheduleNotification.schedule(nextAlarmMilliseconds, requestCode)
+        if(nextAlarmMilliseconds>0)
+            ScheduleNotification.schedule(nextAlarmMilliseconds, requestCode)
 
         // Sound alarm
-        if (playSound)
+        if (ScheduleNotification.playSound)
             SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
         else
-            playSound = true
+            ScheduleNotification.playSound = true
     }
 }

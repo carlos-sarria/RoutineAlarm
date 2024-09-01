@@ -1,5 +1,6 @@
 package com.routinealarm
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -78,7 +79,6 @@ class ViewModel : ViewModel() {
     {
         val hour = hour(alarm.timeStart)
         val minute = minute(alarm.timeStart)
-
         ScheduleNotification.schedule(
             hour = hour,
             minute = minute,

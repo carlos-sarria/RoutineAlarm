@@ -25,7 +25,6 @@ object SoundManager {
                 soundsLibrary[sound]?.start()
             }
         }
-        Log.i("PLAY",sound )
         soundsLibrary[sound]?.start() // First time trigger
     }
 }
