@@ -94,14 +94,14 @@ fun AlarmSetup (
             horizontalAlignment = Alignment.Start)
         {
             EditBox(
-                icon = Icons.Outlined.Create,
+                icon = R.drawable.label,
                 label = "Label", initialText = alarm.label, type = EditType.TEXT,
                 enabled = enabled,
                 onConfirm = { text: String -> alarm.label = text; onUpdated() },
                 onDismiss = {})
 
             EditBox(
-                icon = Icons.Outlined.DateRange,
+                icon = R.drawable.alarm,
                 label = "Start Time", initialText = alarm.timeStart, type = EditType.TIME,
                 enabled = enabled,
                 onConfirm = { text: String -> alarm.timeStart = text; onUpdated() },
@@ -109,7 +109,7 @@ fun AlarmSetup (
             Row()
             {
                 EditBox(
-                    icon = Icons.Outlined.Refresh,
+                    icon = R.drawable.replay,
                     label = "Interval",
                     initialText = alarm.timeInterval,
                     type = EditType.NUMERIC,
@@ -130,7 +130,7 @@ fun AlarmSetup (
             Row()
             {
                 EditBox(
-                    icon = Icons.Outlined.Notifications,
+                    icon = R.drawable.notifications,
                     label = "Sound",
                     initialText = alarm.soundName,
                     type = EditType.COMBO,
@@ -138,7 +138,6 @@ fun AlarmSetup (
                     enabled = enabled,
                     onConfirm = { text: String -> alarm.soundName = text; onUpdated() },
                     onDismiss = {})
-
                 EditBox(
                     label = "Reps",
                     initialText = alarm.soundRep,
@@ -169,7 +168,7 @@ fun AlarmSetup (
 
             EditBox(
                 modifier = modifier.padding(top = 2.dp, bottom = 5.dp),
-                icon = Icons.Outlined.Delete,
+                icon = R.drawable.delete,
                 label = "Delete",
                 type = EditType.NONE,
                 enabled = enabled,

@@ -2,12 +2,13 @@ package com.routinealarm
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
+import android.app.AlarmManager.INTERVAL_DAY
+import android.app.AlarmManager.RTC
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import com.routinealarm.GlobalData.Companion.appContext
 import com.routinealarm.GlobalData.Companion.appViewModel
 import com.routinealarm.helpers.SoundManager
@@ -15,7 +16,6 @@ import java.util.Calendar
 import java.util.Date
 
 internal const val RMNDRNOTITITLEKEY = "RoutineAlarm"
-internal const val MILLISECONDS24HOURS = 86400000L
 
 fun getExactTime(hour: Int, minute: Int): Long {
     val calendar = Calendar.getInstance()
@@ -53,7 +53,7 @@ fun getNextAlarm(requestCode : Int) : Long {
 
     if(alarmTime < currentTime &&  (alarmTime +(numIntervals * intervalLength)) < currentTime)
     {
-        alarmTime += MILLISECONDS24HOURS// Add one day because alarm is set in the past
+        alarmTime += INTERVAL_DAY // Add one day because alarm is set in the past
     }
 
     if (intervalLength > 0 && numIntervals > 0) {
@@ -68,7 +68,7 @@ fun getNextAlarm(requestCode : Int) : Long {
         {
             val nextDay : Int = (today + dayCount + 1) % 7
             if(alarm.weeklyRep[nextDay]){
-                returnTime = alarmTime + nextDay * MILLISECONDS24HOURS
+                returnTime = alarmTime + nextDay * INTERVAL_DAY
                 break
             }
             dayCount++
@@ -125,7 +125,7 @@ object ScheduleNotification {
         )
 
         alarmManager.setAlarmClock(info, pendingIntent)
-//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, milliseconds, pendingIntent)
+//        alarmManager.setExactAndAllowWhileIdle(RTC, milliseconds, pendingIntent)
     }
 
     fun clearAll() {
