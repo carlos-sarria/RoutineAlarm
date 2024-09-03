@@ -30,12 +30,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.ConfirmationDialog
 import com.routinealarm.ui.theme.cBackground
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,7 +55,7 @@ fun AlarmList(
                 title = {
                     Row()
                     {
-                        Text(text = "Routine Alarm")
+                        Text(text = stringResource(R.string.app_name))
                         //Text(style = MaterialTheme.typography.labelMedium, text = "$dateTime")
                     }
                         },
@@ -68,11 +67,11 @@ fun AlarmList(
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
-                        DropdownMenuItem(text = { Text(text = "Sort by Label") },
+                        DropdownMenuItem(text = { Text(text = stringResource(R.string.sort_by_label)) },
                             onClick = {model.sort(useTime=false); scope.invalidate()})
-                        DropdownMenuItem(text = { Text(text = "Sort by Time") },
+                        DropdownMenuItem(text = { Text(text = stringResource(R.string.sort_by_time)) },
                             onClick = {model.sort(useTime=true); scope.invalidate()})
-                        DropdownMenuItem(text = { Text(text = "Delete all") },
+                        DropdownMenuItem(text = { Text(text = stringResource(R.string.delete_all)) },
                             onClick = {deleteAll = true})
                     }
                 }
@@ -101,8 +100,8 @@ fun AlarmList(
         if(deleteAll) {
             showMenu = false
             ConfirmationDialog(
-                label = "Delete All",
-                text = " Are you sure you want to delete all alarms?",
+                label = stringResource(R.string.delete_all),
+                text = stringResource(R.string.delete_all_alarms),
                 onConfirm = { model.deleteChecked(forceAll = true); scope.invalidate(); model.saveAlarms(); deleteAll = false },
                 onDismiss = {deleteAll = false}
             )

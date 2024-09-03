@@ -6,7 +6,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
+import com.routinealarm.R
 import com.routinealarm.ui.theme.cBackgroundDialog
 import com.routinealarm.ui.theme.cTextVariant
 
@@ -24,13 +26,15 @@ fun DialogWrapper(
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {
                 Text(color = MaterialTheme.colorScheme.cTextVariant,
-                    text = "Dismiss")
+                    text = stringResource(R.string.dismiss)
+                )
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
                 Text(color = MaterialTheme.colorScheme.cTextVariant,
-                    text = "OK")
+                    text = stringResource(R.string.accept)
+                )
             }
         },
         properties = DialogProperties(usePlatformDefaultWidth = false),

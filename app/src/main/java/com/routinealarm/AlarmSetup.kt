@@ -20,6 +20,7 @@ import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,9 @@ import com.routinealarm.ui.theme.cTextDisabled
 @Composable
 fun Separator () {
     Box(
-        modifier = Modifier.fillMaxWidth().height(1.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(1.dp)
             .background(MaterialTheme.colorScheme.cTextDisabled)
     )
 }
@@ -89,14 +92,14 @@ fun AlarmSetup (
         {
             EditBox(
                 icon = R.drawable.label,
-                label = "Label", initialText = alarm.label, type = EditType.TEXT,
+                label = stringResource(R.string.label), initialText = alarm.label, type = EditType.TEXT,
                 enabled = enabled,
                 onConfirm = { text: String -> alarm.label = text; onUpdated() },
                 onDismiss = {})
 
             EditBox(
                 icon = R.drawable.alarm,
-                label = "Start Time", initialText = alarm.timeStart, type = EditType.TIME,
+                label = stringResource(R.string.start_time), initialText = alarm.timeStart, type = EditType.TIME,
                 enabled = enabled,
                 onConfirm = { text: String -> alarm.timeStart = text; onUpdated() },
                 onDismiss = {})
@@ -104,7 +107,7 @@ fun AlarmSetup (
             {
                 EditBox(
                     icon = R.drawable.replay,
-                    label = "Interval",
+                    label = stringResource(R.string.interval),
                     initialText = alarm.timeInterval,
                     type = EditType.NUMERIC,
                     numRows = 3,
@@ -113,7 +116,7 @@ fun AlarmSetup (
                     onDismiss = {})
 
                 EditBox(
-                    label = "Reps",
+                    label = stringResource(R.string.reps),
                     initialText = alarm.numIntervals,
                     type = EditType.NUMERIC,
                     numRows = 2,
@@ -125,7 +128,7 @@ fun AlarmSetup (
             {
                 EditBox(
                     icon = R.drawable.notifications,
-                    label = "Sound",
+                    label = stringResource(R.string.sound),
                     initialText = alarm.soundName,
                     type = EditType.COMBO,
                     list = soundList,
@@ -133,7 +136,7 @@ fun AlarmSetup (
                     onConfirm = { text: String -> alarm.soundName = text; onUpdated() },
                     onDismiss = {})
                 EditBox(
-                    label = "Reps",
+                    label = stringResource(R.string.reps),
                     initialText = alarm.soundRep,
                     type = EditType.NUMERIC,
                     numRows = 1,
@@ -142,7 +145,15 @@ fun AlarmSetup (
                     onDismiss = {})
             }
 
-            val weekdays : Array<String> = arrayOf("M", "T", "W", "T", "F", "S", "S")
+            val weekdays : Array<String> = arrayOf(
+                stringResource(R.string.mon),
+                stringResource(R.string.tue),
+                stringResource(R.string.wed),
+                stringResource(R.string.thu),
+                stringResource(R.string.fri),
+                stringResource(R.string.sat),
+                stringResource(R.string.sun)
+            )
             Row()
             {
                 weekdays.forEachIndexed { i, item ->
@@ -163,7 +174,7 @@ fun AlarmSetup (
             EditBox(
                 modifier = modifier.padding(top = 2.dp, bottom = 5.dp),
                 icon = R.drawable.delete,
-                label = "Delete",
+                label = stringResource(R.string.delete),
                 type = EditType.NONE,
                 enabled = enabled,
                 onConfirm = {onDelete()},
