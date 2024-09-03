@@ -31,27 +31,28 @@
      inkscape:window-x="-11"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1" />
+     inkscape:current-layer="svg1"
+     showgrid="false" />
   <path
      d="M 587.2617,-180.02236 C 620.68445,-193.60467 651.09721,-214.09721 678.5,-241.5 732.83333,-295.83333 760,-362 760,-440 760,-518 732.83333,-584.16667 678.5,-638.5 624.16667,-692.83333 558,-720 480,-720 h -6 l 62,62 -56,58 -160,-160 160,-160 56,58 -62,62 h 6 c 50,0 96.83333,9.5 140.5,28.5 43.66667,19 81.66667,44.66667 114,77 32.33333,32.33333 58,70.33333 77,114 19,43.66667 28.5,90.5 28.5,140.5 0,50 -9.5,96.83333 -28.5,140.5 -19,43.66667 -44.66667,81.66667 -77,114 -32.33333,32.33333 -76.29144,61.72382 -119.95811,80.72382"
      id="path1"
      sodipodi:nodetypes="csssscccccccsssssssc" />
   <circle
-     style="opacity:0.98;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:145.909;stroke-linejoin:round;paint-order:fill markers stroke"
+     style="opacity:0.98;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:242.727;stroke-linejoin:round;paint-order:fill markers stroke"
      id="path2"
-     cx="532.87823"
-     cy="-123.25834"
-     r="39.844841" />
+     cx="507.92868"
+     cy="-123.63071"
+     r="66.283943" />
   <circle
-     style="opacity:0.98;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:145.909;stroke-linejoin:round;paint-order:fill markers stroke"
-     id="path2-4"
-     cx="417.37781"
-     cy="-124.71683"
-     r="39.844841" />
-  <circle
-     style="opacity:0.98;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:145.909;stroke-linejoin:round;paint-order:fill markers stroke"
+     style="opacity:0.98;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:242.727;stroke-linejoin:round;paint-order:fill markers stroke"
      id="path2-2"
-     cx="311.74554"
-     cy="-167.16833"
-     r="39.844841" />
+     cx="354.3522"
+     cy="-153.29712"
+     r="66.283943" />
+  <circle
+     style="opacity:0.98;fill:#5f6368;fill-opacity:1;stroke:none;stroke-width:242.727;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="path2-1"
+     cx="229.35609"
+     cy="-247.66484"
+     r="66.283943" />
 </svg>

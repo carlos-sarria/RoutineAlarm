@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.routinealarm.ui.theme.cBackground
 import com.routinealarm.ui.theme.cBackgroundDialog
@@ -108,11 +109,11 @@ fun AlarmItem (
                     )
                     Text(
                         modifier = modifier.padding(horizontal = 5.dp),
-                        text = if (alarm.timeInterval.toInt() > 0) "%s every %s min".format(
+                        text = if (alarm.timeInterval.toInt() > 0) stringResource(R.string.info_rep).format(
                             alarm.timeStart,
                             alarm.timeInterval.replaceFirst (regex = Regex("^0+"), "")
                         )
-                        else "%s no repeat".format(alarm.timeStart),
+                        else stringResource(R.string.info_no_rep).format(alarm.timeStart),
                         style = MaterialTheme.typography.bodySmall,
                         color = textColor(alarm.enabled)
                     )

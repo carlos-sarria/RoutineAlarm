@@ -4,6 +4,8 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.util.Log
+import com.routinealarm.GlobalData.Companion.appContext
+import com.routinealarm.R
 import com.routinealarm.R.raw
 
 object SoundManager {
@@ -11,11 +13,11 @@ object SoundManager {
     private var soundsLibrary =  LinkedHashMap<String, MediaPlayer>()
 
     fun init(context: Context) {
-        soundsLibrary["Bell"] = MediaPlayer.create(context, raw.bell)
-        soundsLibrary["Blip"] = MediaPlayer.create(context, raw.blip)
-        soundsLibrary["Chime"] = MediaPlayer.create(context, raw.chime)
-        soundsLibrary["Drum"] = MediaPlayer.create(context, raw.drum)
-        soundsLibrary["Gong"] = MediaPlayer.create(context, raw.gong)
+        soundsLibrary[appContext.getString(R.string.bell)] = MediaPlayer.create(context, raw.bell)
+        soundsLibrary[appContext.getString(R.string.blip)] = MediaPlayer.create(context, raw.blip)
+        soundsLibrary[appContext.getString(R.string.chime)] = MediaPlayer.create(context, raw.chime)
+        soundsLibrary[appContext.getString(R.string.drum)] = MediaPlayer.create(context, raw.drum)
+        soundsLibrary[appContext.getString(R.string.gong)] = MediaPlayer.create(context, raw.gong)
     }
 
     fun play(sound : String, reps : Int) {

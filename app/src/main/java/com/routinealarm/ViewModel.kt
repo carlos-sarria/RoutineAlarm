@@ -1,6 +1,5 @@
 package com.routinealarm
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -9,12 +8,13 @@ import androidx.lifecycle.ViewModel
 import com.routinealarm.helpers.Prefs
 import kotlin.Int.Companion.MAX_VALUE
 import kotlin.random.Random
+import com.routinealarm.GlobalData.Companion.appContext
 
 data class Alarm (var id: Int)
 {
     var checked by mutableStateOf(false)
     var enabled by mutableStateOf(true)
-    var label by mutableStateOf("Alarm_%03d".format(id))
+    var label by mutableStateOf(appContext.getString(R.string.alarm_label_default).format(id))
     var timeStart by mutableStateOf("08:00")
     var timeInterval by mutableStateOf("000")
     var numIntervals by mutableStateOf("00")
@@ -24,7 +24,13 @@ data class Alarm (var id: Int)
     var weeklyRep by mutableStateOf(arrayOf(true, true, true, true, true, true,true))
 }
 
-var soundList = arrayOf("Chime", "Bell", "Blip", "Gong", "Drum")
+var soundList = arrayOf(
+    appContext.getString(R.string.chime),
+    appContext.getString(R.string.bell),
+    appContext.getString(R.string.blip),
+    appContext.getString(R.string.gong),
+    appContext.getString(R.string.drum)
+)
 fun hour(string : String) : Int = string.substring(0, 2).toInt()
 fun minute(string : String) : Int = string.substring(3, 5).toInt()
 
