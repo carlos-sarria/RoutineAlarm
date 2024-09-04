@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Συναγερμός ρουτίνας</string>
+    <string name="dismiss">Ματαίωση</string>
+    <string name="accept">Αποδέχομαι</string>
+    <string name="sort_by_label">Ταξινόμηση κατά ετικέτα</string>
+    <string name="sort_by_time">Ταξινόμηση ανά ώρα</string>
+    <string name="delete_all">Διαγραφή όλων</string>
+    <string name="delete_all_alarms">Είστε βέβαιοι ότι θέλετε να διαγράψετε όλα τα ξυπνητήρια;</string>
+    <string name="label">Επιγραφή</string>
+    <string name="start_time">Ώρα έναρξης</string>
+    <string name="interval">Διάστημα</string>
+    <string name="reps">Επαναλήψεις</string>
+    <string name="sound">Ήχος</string>
+    <string name="mon">Δ</string>
+    <string name="tue">Τ</string>
+    <string name="wed">Τ</string>
+    <string name="thu">Π</string>
+    <string name="fri">Π</string>
+    <string name="sat">Σ</string>
+    <string name="sun">Κυριακή</string>
+    <string name="delete">Διαγράφω</string>
+    <string name="alarm_label_default">Alarm_%03d</string>
+    <string name="chime">Μουσικοί κωδώνες</string>
+    <string name="bell">Κουδούνι</string>
+    <string name="blip">Μπιπ</string>
+    <string name="gong">Δισκοειδής</string>
+    <string name="drum">Τύμπανο</string>
+    <string name="info_rep">%s κάθε %s λεπτά</string>
+    <string name="info_no_rep">%s χωρίς επανάληψη</string>
+</resources>

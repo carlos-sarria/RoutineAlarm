@@ -9,7 +9,7 @@
     <string name="label">Label</string>
     <string name="start_time">Start Time</string>
     <string name="interval">Interval</string>
-    <string name="reps">Reps</string>
+    <string name="reps">Repetitions</string>
     <string name="sound">Sound</string>
     <string name="mon">M</string>
     <string name="tue">T</string>
@@ -17,7 +17,7 @@
     <string name="thu">T</string>
     <string name="fri">F</string>
     <string name="sat">S</string>
-    <string name="sun">S</string>
+    <string name="sun">Sunday</string>
     <string name="delete">Delete</string>
     <string name="alarm_label_default">Alarm_%03d</string>
     <string name="chime">Chime</string>
@@ -25,6 +25,6 @@
     <string name="blip">Blip</string>
     <string name="gong">Gong</string>
     <string name="drum">Drum</string>
-    <string name="info_rep">%s every %s min</string>
+    <string name="info_rep">%s every %s minutes</string>
     <string name="info_no_rep">%s no repeat</string>
 </resources>

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Allarme di routine</string>
+    <string name="dismiss">Cancellare</string>
+    <string name="accept">Accettare</string>
+    <string name="sort_by_label">Ordina per etichetta</string>
+    <string name="sort_by_time">Ordina per ora</string>
+    <string name="delete_all">Elimina tutto</string>
+    <string name="delete_all_alarms">Vuoi davvero eliminare tutti gli allarmi\?</string>
+    <string name="label">Etichetta</string>
+    <string name="start_time">Ora di inizio</string>
+    <string name="interval">Intervallo</string>
+    <string name="reps">Ripetizioni</string>
+    <string name="sound">Suono</string>
+    <string name="mon">L</string>
+    <string name="tue">M</string>
+    <string name="wed">M</string>
+    <string name="thu">G</string>
+    <string name="fri">V</string>
+    <string name="sat">S</string>
+    <string name="sun">Domenica</string>
+    <string name="delete">Eliminare</string>
+    <string name="alarm_label_default">Allarme_%03d</string>
+    <string name="chime">Carillon</string>
+    <string name="bell">Campana</string>
+    <string name="blip">Segnale acustico</string>
+    <string name="gong">Gong</string>
+    <string name="drum">Tamburo</string>
+    <string name="info_rep">%s ogni %s minuti</string>
+    <string name="info_no_rep">%s nessuna ripetizione</string>
+</resources>

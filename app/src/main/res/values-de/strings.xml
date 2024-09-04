@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Routinealarm</string>
+    <string name="dismiss">Stornieren</string>
+    <string name="accept">Akzeptieren</string>
+    <string name="sort_by_label">Nach Label sortieren</string>
+    <string name="sort_by_time">Nach Zeit sortieren</string>
+    <string name="delete_all">Alle löschen</string>
+    <string name="delete_all_alarms">Möchten Sie wirklich alle Alarme löschen\?</string>
+    <string name="label">Etikett</string>
+    <string name="start_time">Startzeit</string>
+    <string name="interval">Intervall</string>
+    <string name="reps">Wiederholungen</string>
+    <string name="sound">Klang</string>
+    <string name="mon">M</string>
+    <string name="tue">D</string>
+    <string name="wed">M</string>
+    <string name="thu">D</string>
+    <string name="fri">F</string>
+    <string name="sat">S</string>
+    <string name="sun">Sonntag</string>
+    <string name="delete">Löschen</string>
+    <string name="alarm_label_default">Alarm_%03d</string>
+    <string name="chime">Glockenspiel</string>
+    <string name="bell">Glocke</string>
+    <string name="blip">Signalton</string>
+    <string name="gong">Gong</string>
+    <string name="drum">Trommel</string>
+    <string name="info_rep">%s alle %s Minuten</string>
+    <string name="info_no_rep">%s keine Wiederholung</string>
+</resources>
