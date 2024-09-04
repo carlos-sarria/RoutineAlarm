@@ -17,7 +17,7 @@
     <string name="thu">J</string>
     <string name="fri">V</string>
     <string name="sat">S</string>
-    <string name="sun">Dimanche</string>
+    <string name="sun">D</string>
     <string name="delete">Supprimer</string>
     <string name="alarm_label_default">Alarme_%03d</string>
     <string name="chime">Carillon</string>

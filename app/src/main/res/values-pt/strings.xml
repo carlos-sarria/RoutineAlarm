@@ -17,7 +17,7 @@
     <string name="thu">Q</string>
     <string name="fri">S</string>
     <string name="sat">S</string>
-    <string name="sun">Domingo</string>
+    <string name="sun">D</string>
     <string name="delete">Excluir</string>
     <string name="alarm_label_default">Alarme_%03d</string>
     <string name="chime">Carrilhão</string>

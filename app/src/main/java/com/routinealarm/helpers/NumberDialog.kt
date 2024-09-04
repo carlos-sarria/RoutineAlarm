@@ -37,7 +37,7 @@ fun NumberDialog(
     }
 
     DialogWrapper(
-        modifier = Modifier.width(250.dp),
+        modifier = Modifier.width(300.dp),
         onDismiss = onDismiss,
         onConfirm = {
             var s  = ""

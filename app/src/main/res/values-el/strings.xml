@@ -17,10 +17,10 @@
     <string name="thu">Π</string>
     <string name="fri">Π</string>
     <string name="sat">Σ</string>
-    <string name="sun">Κυριακή</string>
+    <string name="sun">Κ</string>
     <string name="delete">Διαγράφω</string>
     <string name="alarm_label_default">Alarm_%03d</string>
-    <string name="chime">Μουσικοί κωδώνες</string>
+    <string name="chime">Κωδώνες</string>
     <string name="bell">Κουδούνι</string>
     <string name="blip">Μπιπ</string>
     <string name="gong">Δισκοειδής</string>

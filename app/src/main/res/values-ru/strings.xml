@@ -16,8 +16,7 @@
     <string name="wed">С</string>
     <string name="thu">Ч</string>
     <string name="fri">П</string>
-    <string name="sat">Суббота</string>
-    <string name="sun">В</string>
+    <string name="sat">С</string>
     <string name="sun">В</string>
     <string name="delete">Удалить</string>
     <string name="alarm_label_default">Сигнализация_%03d</string>
