@@ -22,7 +22,7 @@
     <string name="alarm_label_default">Alarm_%03d</string>
     <string name="chime">Glockenspiel</string>
     <string name="bell">Glocke</string>
-    <string name="blip">Signalton</string>
+    <string name="beep">Signalton</string>
     <string name="gong">Gong</string>
     <string name="drum">Trommel</string>
     <string name="info_rep">%s alle %s Minuten</string>

@@ -22,7 +22,7 @@
     <string name="alarm_label_default">Alarme_%03d</string>
     <string name="chime">Carrilhão</string>
     <string name="bell">Sino</string>
-    <string name="blip">Bip</string>
+    <string name="beep">Bip</string>
     <string name="gong">Gongo</string>
     <string name="drum">Tambor</string>
     <string name="info_rep">%s a cada %s minutos</string>

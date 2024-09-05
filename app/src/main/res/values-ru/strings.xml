@@ -22,7 +22,7 @@
     <string name="alarm_label_default">Сигнализация_%03d</string>
     <string name="chime">Карильон</string>
     <string name="bell">Белл</string>
-    <string name="blip">Бип</string>
+    <string name="beep">Бип</string>
     <string name="gong">Гонг</string>
     <string name="drum">Барабан</string>
     <string name="info_rep">%s каждые %s минут</string>

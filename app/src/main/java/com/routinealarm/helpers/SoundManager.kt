@@ -1,9 +1,7 @@
 package com.routinealarm.helpers
 
 import android.content.Context
-import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.util.Log
 import com.routinealarm.GlobalData.Companion.appContext
 import com.routinealarm.R
 import com.routinealarm.R.raw
@@ -14,7 +12,7 @@ object SoundManager {
 
     fun init(context: Context) {
         soundsLibrary[appContext.getString(R.string.bell)] = MediaPlayer.create(context, raw.bell)
-        soundsLibrary[appContext.getString(R.string.blip)] = MediaPlayer.create(context, raw.blip)
+        soundsLibrary[appContext.getString(R.string.beep)] = MediaPlayer.create(context, raw.blip)
         soundsLibrary[appContext.getString(R.string.chime)] = MediaPlayer.create(context, raw.chime)
         soundsLibrary[appContext.getString(R.string.drum)] = MediaPlayer.create(context, raw.drum)
         soundsLibrary[appContext.getString(R.string.gong)] = MediaPlayer.create(context, raw.gong)

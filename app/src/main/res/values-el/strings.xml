@@ -22,7 +22,7 @@
     <string name="alarm_label_default">Alarm_%03d</string>
     <string name="chime">Κωδώνες</string>
     <string name="bell">Κουδούνι</string>
-    <string name="blip">Μπιπ</string>
+    <string name="beep">Μπιπ</string>
     <string name="gong">Δισκοειδής</string>
     <string name="drum">Τύμπανο</string>
     <string name="info_rep">%s κάθε %s λεπτά</string>
