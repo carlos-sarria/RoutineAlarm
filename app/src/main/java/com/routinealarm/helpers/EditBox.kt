@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.routinealarm.R
 import com.routinealarm.textColor
 import com.routinealarm.ui.theme.cBackground
 import com.routinealarm.ui.theme.cTextVariant
@@ -69,10 +68,10 @@ fun EditBox(
         if(initialText != "") {
             Text(
                 modifier = modifier
-                    .background(MaterialTheme.colorScheme.cBackground)
+                    .background(cBackground)
                     .padding(horizontal = 5.dp),
                 text = text,
-                color = textColor(enabled, MaterialTheme.colorScheme.cTextVariant),
+                color = textColor(enabled, cTextVariant),
                 style = MaterialTheme.typography.bodyLarge
             )
         }

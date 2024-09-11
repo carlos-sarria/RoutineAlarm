@@ -35,9 +35,9 @@ import com.routinealarm.ui.theme.cTextVariant
 import com.routinealarm.ui.theme.cThumb
 
 @Composable
-fun textColor(enabled : Boolean, color : Color = MaterialTheme.colorScheme.cText) : Color {
+fun textColor(enabled : Boolean, color : Color = cText) : Color {
     return if (enabled) color
-    else MaterialTheme.colorScheme.cTextDisabled
+    else cTextDisabled
 }
 
 @Composable
@@ -54,7 +54,7 @@ fun ExpandableSection(
     Column(
         modifier = modifier
             .clickable { isExpanded = !isExpanded }
-            .background(color = MaterialTheme.colorScheme.cBackground)
+            .background(color = cBackground)
             .fillMaxWidth()
     ) {
          Row(modifier = modifier.clickable{isExpanded=!isExpanded},
@@ -70,7 +70,7 @@ fun ExpandableSection(
 
         AnimatedVisibility(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.cBackgroundDialog)
+                .background(cBackgroundDialog)
                 .fillMaxWidth(),
             visible = isExpanded
         ) {
@@ -122,8 +122,8 @@ fun AlarmItem (
                     modifier = Modifier.padding(end = 10.dp),
                     checked = alarm.enabled,
                     colors = SwitchDefaults.colors(
-                        checkedTrackColor = MaterialTheme.colorScheme.cTextVariant,
-                        checkedThumbColor = MaterialTheme.colorScheme.cThumb
+                        checkedTrackColor = cTextVariant,
+                        checkedThumbColor = cThumb
                     ),
                     onCheckedChange = onEnableChanged
                 )

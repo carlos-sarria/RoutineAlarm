@@ -1,7 +1,6 @@
 package com.routinealarm.helpers
 
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -20,19 +19,19 @@ fun DialogWrapper(
     content: @Composable () -> Unit
 ) {
     AlertDialog(
-        containerColor = MaterialTheme.colorScheme.cBackgroundDialog,
+        containerColor = cBackgroundDialog,
         modifier = modifier,
         onDismissRequest = onDismiss,
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {
-                Text(color = MaterialTheme.colorScheme.cTextVariant,
+                Text(color = cTextVariant,
                     text = stringResource(R.string.dismiss)
                 )
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
-                Text(color = MaterialTheme.colorScheme.cTextVariant,
+                Text(color = cTextVariant,
                     text = stringResource(R.string.accept)
                 )
             }

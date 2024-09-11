@@ -23,7 +23,7 @@ fun ConfirmationDialog(
     if (shouldDismiss) return
 
     AlertDialog(
-        containerColor = MaterialTheme.colorScheme.cBackgroundDialog,
+        containerColor = cBackgroundDialog,
         title = { Text(text = label) },
         text = { Text(style = MaterialTheme.typography.bodyLarge, text = text) },
         onDismissRequest = {shouldDismiss = true},
@@ -31,14 +31,14 @@ fun ConfirmationDialog(
             TextButton(
                 onClick = onConfirm
             ) {
-                Text(color = MaterialTheme.colorScheme.cTextVariant,text = "Ok")
+                Text(color = cTextVariant,text = "Ok")
             }
         },
         dismissButton = {
             TextButton(
                 onClick = onDismiss
             ) {
-                Text(color = MaterialTheme.colorScheme.cTextVariant,text = "Cancel")
+                Text(color = cTextVariant,text = "Cancel")
             }
         }
     )

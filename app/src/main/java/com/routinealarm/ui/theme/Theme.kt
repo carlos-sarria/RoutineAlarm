@@ -2,7 +2,6 @@ package com.routinealarm.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -12,12 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-val ColorScheme.cBackground: Color @Composable get() = if(isSystemInDarkTheme()) Grey8 else Grey1
-val ColorScheme.cText: Color @Composable get() = if(isSystemInDarkTheme()) White else Black
-val ColorScheme.cTextVariant: Color @Composable get() = if(isSystemInDarkTheme()) Cyan3 else Magenta5
-val ColorScheme.cTextDisabled: Color @Composable get() = if(isSystemInDarkTheme()) Grey5 else Grey3
-val ColorScheme.cBackgroundDialog: Color @Composable get() = if(isSystemInDarkTheme()) Grey7 else Grey0
-val ColorScheme.cThumb: Color @Composable get() = if(isSystemInDarkTheme()) Cyan10 else White
+val cBackground: Color @Composable get() = if(isSystemInDarkTheme()) Grey8 else Grey1
+val cText: Color @Composable get() = if(isSystemInDarkTheme()) White else Black
+val cTextVariant: Color @Composable get() = if(isSystemInDarkTheme()) Cyan3 else Magenta5
+val cTextDisabled: Color @Composable get() = if(isSystemInDarkTheme()) Grey5 else Grey3
+val cBackgroundDialog: Color @Composable get() = if(isSystemInDarkTheme()) Grey7 else Grey0
+val cThumb: Color @Composable get() = if(isSystemInDarkTheme()) Cyan10 else White
 
 @Composable
 fun RoutineAlarmTheme(

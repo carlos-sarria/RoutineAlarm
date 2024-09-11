@@ -1,12 +1,10 @@
 package com.routinealarm.helpers
 
-import android.util.Log
 import android.widget.NumberPicker
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -70,7 +68,7 @@ fun SimpleNumberPicker(
     max: Int = 9,
     onValueChange: (Int) -> Unit
 ) {
-    val color = MaterialTheme.colorScheme.cTextVariant.toArgb()
+    val color = cTextVariant.toArgb()
 
     AndroidView(
         modifier = Modifier.width(20.dp),

@@ -17,13 +17,13 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -43,7 +43,7 @@ fun AlarmList(
 ){
     val scope = currentRecomposeScope
     var showMenu by remember { mutableStateOf(false) }
-    var expandedId by  remember { mutableStateOf(-1) }
+    var expandedId by  remember { mutableIntStateOf(-1) }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var deleteAll by remember { mutableStateOf(false) }
@@ -80,7 +80,7 @@ fun AlarmList(
         floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
             FloatingActionButton(
-                containerColor = MaterialTheme.colorScheme.cBackground,
+                containerColor = cBackground,
                 shape = CircleShape,
                 onClick = {
                     expandedId = model.add().id

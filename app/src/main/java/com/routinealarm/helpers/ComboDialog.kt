@@ -1,15 +1,8 @@
 package com.routinealarm.helpers
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.routinealarm.ui.theme.cBackgroundDialog
 import com.routinealarm.ui.theme.cTextVariant
 
@@ -33,10 +25,9 @@ fun ComboDialog(
     var selectedText by remember { mutableStateOf(selected) }
     var expanded by remember { mutableStateOf(true) }
 
-    Surface(
-    ) {
+    Surface {
         DropdownMenu(
-            modifier = Modifier.background(MaterialTheme.colorScheme.cBackgroundDialog),
+            modifier = Modifier.background(cBackgroundDialog),
             expanded = expanded,
             onDismissRequest = { expanded = false; onDismiss() }
         )
@@ -45,7 +36,7 @@ fun ComboDialog(
                     DropdownMenuItem(
                         text = {
                             Text(
-                                color = MaterialTheme.colorScheme.cTextVariant,
+                                color = cTextVariant,
                                 text = item
                             )
                         },

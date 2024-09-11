@@ -37,7 +37,7 @@ fun Separator () {
         modifier = Modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(MaterialTheme.colorScheme.cTextDisabled)
+            .background(cTextDisabled)
     )
 }
 
@@ -49,8 +49,8 @@ fun RoundButton(
     onClick: () -> Unit
 )
 {
-    val buttonColor : Color = if (selected) MaterialTheme.colorScheme.cBackground
-                        else MaterialTheme.colorScheme.cBackgroundDialog
+    val buttonColor : Color = if (selected) cBackground
+                        else cBackgroundDialog
 
     Box(Modifier.padding(2.dp))
     {

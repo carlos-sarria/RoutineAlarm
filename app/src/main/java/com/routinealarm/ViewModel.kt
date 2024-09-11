@@ -76,7 +76,7 @@ class ViewModel : ViewModel() {
             saveAlarms()
         }
 
-    fun removeSystemAlarm(alarm : Alarm)
+    private fun removeSystemAlarm(alarm : Alarm)
     {
         ScheduleNotification.clear(alarm.requestCode)
     }

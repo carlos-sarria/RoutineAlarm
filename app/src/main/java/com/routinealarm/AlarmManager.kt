@@ -3,7 +3,6 @@ package com.routinealarm
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.AlarmManager.INTERVAL_DAY
-import android.app.AlarmManager.RTC
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
