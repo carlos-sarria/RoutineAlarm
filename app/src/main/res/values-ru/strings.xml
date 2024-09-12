@@ -20,11 +20,19 @@
     <string name="sun">В</string>
     <string name="delete">Удалить</string>
     <string name="alarm_label_default">Сигнализация_%03d</string>
-    <string name="chime">Карильон</string>
-    <string name="bell">Белл</string>
-    <string name="beep">Бип</string>
-    <string name="gong">Гонг</string>
-    <string name="drum">Барабан</string>
+    <string name="alarm">alarm</string>
+    <string name="alien">alien</string>
+    <string name="arp">arp</string>
+    <string name="bell">bell</string>
+    <string name="blip">blip</string>
+    <string name="busy">busy</string>
+    <string name="chord">chord</string>
+    <string name="dtmf">dtmf</string>
+    <string name="gliss">gliss</string>
+    <string name="gong">gong</string>
+    <string name="pad">pad</string>
+    <string name="space">space</string>
+    <string name="tune">tune</string>
     <string name="info_rep">%s каждые %s минут</string>
     <string name="info_no_rep">%s без повторения</string>
 </resources>

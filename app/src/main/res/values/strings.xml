@@ -20,11 +20,19 @@
     <string name="sun">S</string>
     <string name="delete">Delete</string>
     <string name="alarm_label_default">Alarm_%03d</string>
-    <string name="chime">Chime</string>
-    <string name="bell">Bell</string>
-    <string name="beep">Beep</string>
-    <string name="gong">Gong</string>
-    <string name="drum">Drum</string>
+    <string name="alarm">alarm</string>
+    <string name="alien">alien</string>
+    <string name="arp">arpeggio</string>
+    <string name="blip">beep</string>
+    <string name="bell">bell</string>
+    <string name="busy">busy</string>
+    <string name="chord">chord</string>
+    <string name="dtmf">computer</string>
+    <string name="gliss">glissando</string>
+    <string name="gong">gong</string>
+    <string name="pad">pad</string>
+    <string name="space">space</string>
+    <string name="tune">tune</string>
     <string name="info_rep">%s every %s minutes</string>
     <string name="info_no_rep">%s no repeat</string>
 </resources>

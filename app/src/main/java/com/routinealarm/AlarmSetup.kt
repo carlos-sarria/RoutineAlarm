@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.routinealarm.helpers.EditBox
 import com.routinealarm.helpers.EditType
+import com.routinealarm.helpers.soundList
 import com.routinealarm.ui.theme.cBackground
 import com.routinealarm.ui.theme.cBackgroundDialog
 import com.routinealarm.ui.theme.cTextDisabled
@@ -131,7 +132,7 @@ fun AlarmSetup (
                     label = stringResource(R.string.sound),
                     initialText = alarm.soundName,
                     type = EditType.COMBO,
-                    list = soundList,
+                    list = soundList.keys.toTypedArray(),
                     enabled = enabled,
                     onConfirm = { text: String -> alarm.soundName = text; onUpdated() },
                     onDismiss = {})

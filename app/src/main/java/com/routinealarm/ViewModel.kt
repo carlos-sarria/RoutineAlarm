@@ -18,19 +18,12 @@ data class Alarm (var id: Int)
     var timeStart by mutableStateOf("08:00")
     var timeInterval by mutableStateOf("000")
     var numIntervals by mutableStateOf("00")
-    var soundName by mutableStateOf(appContext.getString(R.string.beep))
+    var soundName by mutableStateOf(appContext.getString(R.string.blip))
     var soundRep by mutableStateOf("1")
     var requestCode by mutableIntStateOf(Random.nextInt(0, MAX_VALUE))
     var weeklyRep by mutableStateOf(arrayOf(true, true, true, true, true, true,true))
 }
 
-var soundList = arrayOf(
-    appContext.getString(R.string.chime),
-    appContext.getString(R.string.bell),
-    appContext.getString(R.string.beep),
-    appContext.getString(R.string.gong),
-    appContext.getString(R.string.drum)
-)
 fun hour(string : String) : Int = string.substring(0, 2).toInt()
 fun minute(string : String) : Int = string.substring(3, 5).toInt()
 

@@ -20,11 +20,19 @@
     <string name="sun">Κ</string>
     <string name="delete">Διαγράφω</string>
     <string name="alarm_label_default">Alarm_%03d</string>
-    <string name="chime">Κωδώνες</string>
-    <string name="bell">Κουδούνι</string>
-    <string name="beep">Μπιπ</string>
-    <string name="gong">Δισκοειδής</string>
-    <string name="drum">Τύμπανο</string>
+    <string name="alarm">alarm</string>
+    <string name="alien">alien</string>
+    <string name="arp">arp</string>
+    <string name="blip">blip</string>
+    <string name="bell">bell</string>
+    <string name="busy">busy</string>
+    <string name="chord">chord</string>
+    <string name="dtmf">dtmf</string>
+    <string name="gliss">gliss</string>
+    <string name="gong">gong</string>
+    <string name="pad">pad</string>
+    <string name="space">space</string>
+    <string name="tune">tune</string>
     <string name="info_rep">%s κάθε %s λεπτά</string>
     <string name="info_no_rep">%s χωρίς επανάληψη</string>
 </resources>

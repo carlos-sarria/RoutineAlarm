@@ -1,6 +1,7 @@
 package com.routinealarm.helpers
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Surface
@@ -11,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.routinealarm.ui.theme.cBackgroundDialog
 import com.routinealarm.ui.theme.cTextVariant
 
@@ -34,6 +36,7 @@ fun ComboDialog(
         {
             list.forEach { item ->
                     DropdownMenuItem(
+                        modifier = Modifier.requiredSizeIn(maxHeight = 30.dp),
                         text = {
                             Text(
                                 color = cTextVariant,

@@ -20,11 +20,19 @@
     <string name="sun">D</string>
     <string name="delete">Excluir</string>
     <string name="alarm_label_default">Alarme_%03d</string>
-    <string name="chime">Carrilhão</string>
-    <string name="bell">Sino</string>
-    <string name="beep">Bip</string>
-    <string name="gong">Gongo</string>
-    <string name="drum">Tambor</string>
+    <string name="alarm">alarm</string>
+    <string name="alien">alien</string>
+    <string name="arp">arp</string>
+    <string name="blip">blip</string>
+    <string name="bell">bell</string>
+    <string name="busy">busy</string>
+    <string name="chord">chord</string>
+    <string name="dtmf">dtmf</string>
+    <string name="gliss">gliss</string>
+    <string name="gong">gong</string>
+    <string name="pad">pad</string>
+    <string name="space">space</string>
+    <string name="tune">tune</string>
     <string name="info_rep">%s a cada %s minutos</string>
     <string name="info_no_rep">%s sem repetição</string>
 </resources>
