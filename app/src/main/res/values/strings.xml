@@ -30,9 +30,9 @@
     <string name="dtmf">computer</string>
     <string name="gliss">glissando</string>
     <string name="gong">gong</string>
-    <string name="pad">pad</string>
+    <string name="pad">elevation</string>
     <string name="space">space</string>
-    <string name="tune">tune</string>
+    <string name="tune">melody</string>
     <string name="info_rep">%s every %s minutes</string>
     <string name="info_no_rep">%s no repeat</string>
 </resources>
