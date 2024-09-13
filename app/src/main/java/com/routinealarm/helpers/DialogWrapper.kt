@@ -14,6 +14,7 @@ import com.routinealarm.ui.theme.cTextVariant
 @Composable
 fun DialogWrapper(
     modifier : Modifier = Modifier,
+    showCancel : Boolean = true,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
     content: @Composable () -> Unit
@@ -23,10 +24,13 @@ fun DialogWrapper(
         modifier = modifier,
         onDismissRequest = onDismiss,
         dismissButton = {
-            TextButton(onClick = { onDismiss() }) {
-                Text(color = cTextVariant,
-                    text = stringResource(R.string.dismiss)
-                )
+            if(showCancel) {
+                TextButton(onClick = { onDismiss() }) {
+                    Text(
+                        color = cTextVariant,
+                        text = stringResource(R.string.dismiss)
+                    )
+                }
             }
         },
         confirmButton = {

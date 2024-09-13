@@ -35,4 +35,6 @@
     <string name="tune">mélodie</string>
     <string name="info_rep">%s toutes les %s minutes</string>
     <string name="info_no_rep">%s pas de répétition</string>
+    <string name="contact">Contact</string>
+    <string name="info">Information</string>
 </resources>

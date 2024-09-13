@@ -35,4 +35,6 @@
     <string name="tune">μελωδία</string>
     <string name="info_rep">%s κάθε %s λεπτά</string>
     <string name="info_no_rep">%s χωρίς επανάληψη</string>
+    <string name="contact">Επαφή</string>
+    <string name="info">Πληροφορίες</string>
 </resources>

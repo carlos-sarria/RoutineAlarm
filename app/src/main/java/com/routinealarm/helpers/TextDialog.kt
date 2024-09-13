@@ -21,7 +21,7 @@ fun TextDialog(
 {
     var editText by rememberSaveable { mutableStateOf(text) }
 
-    DialogWrapper( // From TimeSelect
+    DialogWrapper(
         onDismiss = onDismiss,
         onConfirm = {onConfirm(editText)}
     ) {

@@ -1,5 +1,6 @@
 package com.routinealarm
 
+import android.provider.Settings.Global.getString
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.routinealarm.helpers.AppInfo
 import com.routinealarm.helpers.ConfirmationDialog
 import com.routinealarm.ui.theme.cBackground
 import kotlinx.coroutines.launch
@@ -47,6 +49,7 @@ fun AlarmList(
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     var deleteAll by remember { mutableStateOf(false) }
+    var showInfo by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -56,7 +59,6 @@ fun AlarmList(
                     Row()
                     {
                         Text(text = stringResource(R.string.app_name))
-                        //Text(style = MaterialTheme.typography.labelMedium, text = "$dateTime")
                     }
                         },
                 actions = {
@@ -73,6 +75,8 @@ fun AlarmList(
                             onClick = {model.sort(useTime=true); scope.invalidate()})
                         DropdownMenuItem(text = { Text(text = stringResource(R.string.delete_all)) },
                             onClick = {deleteAll = true})
+                        DropdownMenuItem(text = { Text(text = stringResource(R.string.info)) },
+                            onClick = {showInfo = true})
                     }
                 }
             )
@@ -104,6 +108,13 @@ fun AlarmList(
                 text = stringResource(R.string.delete_all_alarms),
                 onConfirm = { model.deleteChecked(forceAll = true); scope.invalidate(); model.saveAlarms(); deleteAll = false },
                 onDismiss = {deleteAll = false}
+            )
+        }
+        if(showInfo) {
+            showMenu = false
+            AppInfo(
+                onConfirm = { showInfo = false },
+                onDismiss = { showInfo = false }
             )
         }
         LazyColumn(
