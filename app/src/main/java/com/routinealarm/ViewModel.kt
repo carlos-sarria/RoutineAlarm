@@ -22,6 +22,7 @@ data class Alarm (var id: Int)
     var soundRep by mutableStateOf("1")
     var requestCode by mutableIntStateOf(Random.nextInt(0, MAX_VALUE))
     var weeklyRep by mutableStateOf(arrayOf(true, true, true, true, true, true,true))
+    var scheduledTime by mutableStateOf(0L)
 }
 
 fun hour(string : String) : Int = string.substring(0, 2).toInt()
@@ -97,6 +98,7 @@ class ViewModel : ViewModel() {
             Prefs.set(key="soundName_$index", value=alarm.soundName)
             Prefs.set(key="requestCode_$index", value=alarm.requestCode)
             Prefs.set(key="soundRep_$index", value=alarm.soundRep)
+            Prefs.set(key="scheduledTime_$index", value=alarm.scheduledTime)
             for (i in 0..6)
                 Prefs.set(key="weeklyRep_$index-$i", value=alarm.weeklyRep[i])
         }
@@ -115,6 +117,7 @@ class ViewModel : ViewModel() {
             alarm.soundName = Prefs.get(key="soundName_$id")
             alarm.requestCode = Prefs.get(key="requestCode_$id")
             alarm.soundRep = Prefs.get(key="soundRep_$id")
+            alarm.scheduledTime = Prefs.get(key="scheduledTime_$id")
             for (i in 0..6)
                 alarm.weeklyRep[i] = Prefs.get(key="weeklyRep_$id-$i")
             _alarms.add(alarm)

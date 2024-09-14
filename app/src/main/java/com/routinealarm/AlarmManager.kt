@@ -8,11 +8,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import com.routinealarm.GlobalData.Companion.appContext
 import com.routinealarm.GlobalData.Companion.appViewModel
 import com.routinealarm.helpers.SoundManager
 import java.util.Calendar
 import java.util.Date
+import kotlin.math.abs
 
 internal const val RMNDRNOTITITLEKEY = "RoutineAlarm"
 
@@ -81,7 +83,7 @@ fun getNextAlarm(requestCode : Int) : Long {
 
 object ScheduleNotification {
 
-    var playSound : Boolean = true
+    private val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     private fun getIntent (requestCode : Int) : PendingIntent {
 
@@ -99,15 +101,11 @@ object ScheduleNotification {
         return pendingIntent
     }
 
-    @SuppressLint("ScheduleExactAlarm")
     fun schedule(
         hour: Int,
         minute: Int,
         requestCode : Int
     ) {
-        // When the alarm is set in the past needs to be triggered now, but the sound should not play
-        val alarmTime = getExactTime(hour, minute)
-        if(alarmTime < getCurrentTime()) playSound = false
         schedule(getExactTime(hour, minute), requestCode)
     }
 
@@ -116,7 +114,6 @@ object ScheduleNotification {
         requestCode : Int
     ) {
         val pendingIntent = getIntent(requestCode)
-        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val info : AlarmManager.AlarmClockInfo = AlarmManager.AlarmClockInfo(
             milliseconds,
@@ -124,19 +121,17 @@ object ScheduleNotification {
         )
 
         alarmManager.setAlarmClock(info, pendingIntent)
-//        alarmManager.setExactAndAllowWhileIdle(RTC, milliseconds, pendingIntent)
     }
 
     fun clearAll() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
             alarmManager.cancelAll()
         }
     }
 
     fun clear(requestCode : Int) {
-        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = getIntent(requestCode)
+         val pendingIntent = getIntent(requestCode)
         alarmManager.cancel(pendingIntent)
     }
 }
@@ -155,16 +150,22 @@ class ReminderNotification {
         val alarm : Alarm? = appViewModel.alarms.find { alarm -> alarm.requestCode == requestCode }
         if(alarm == null) return
 
+        // Get the current alarm triggering time
+        val prevScheduledTime : Long = alarm.scheduledTime
+
         // Delete current alarm and add next alarm
         ScheduleNotification.clear(requestCode)
         val nextAlarmMilliseconds = getNextAlarm(requestCode)
         if(nextAlarmMilliseconds>0)
             ScheduleNotification.schedule(nextAlarmMilliseconds, requestCode)
+        alarm.scheduledTime = nextAlarmMilliseconds
 
         // Sound alarm
-        if (ScheduleNotification.playSound)
-            SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
-        else
-            ScheduleNotification.playSound = true
+        // Android will trigger any alarm that was set in the past
+        // Avoid sounding the alarm if it was set in less than 30 seconds
+        val curr = getCurrentTime()
+        Log.i("ALARM","$prevScheduledTime $curr")
+        if ( abs(getCurrentTime()-prevScheduledTime) < 30000L )
+         SoundManager.play(alarm.soundName, alarm.soundRep.toInt())
     }
 }
