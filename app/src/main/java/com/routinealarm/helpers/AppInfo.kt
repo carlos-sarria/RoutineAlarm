@@ -2,8 +2,8 @@ package com.routinealarm.helpers
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -55,10 +55,9 @@ fun AppInfo(
             // Button to send an email
             Button(modifier = Modifier.padding(top = 30.dp),
                 onClick = {
-                val i = Intent(Intent.ACTION_SEND)
+                val i = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
                 i.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
                 i.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-                i.setType("message/rfc822")
                 appContext.startActivity(Intent.createChooser(i,"Choose an Email client : "))
             }) {
                 Text(text = stringResource(R.string.contact) )
