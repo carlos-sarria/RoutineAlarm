@@ -13,12 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import com.routinealarm.GlobalData.Companion.appContext
 import com.routinealarm.R
 
@@ -28,11 +26,11 @@ fun AppInfo(
     onConfirm :  () -> Unit = {},
     onDismiss :  () -> Unit = {},
 ) {
-    var shouldDismiss by remember { mutableStateOf(false) }
+    val shouldDismiss by remember { mutableStateOf(false) }
     if (shouldDismiss) return
 
-    val pm: PackageManager = appContext.getPackageManager()
-    val packageName: String = appContext.getPackageName()
+    val pm: PackageManager = appContext.packageManager
+    val packageName: String = appContext.packageName
     val info = pm.getPackageInfo(packageName, 0)
 
     DialogWrapper(
@@ -66,7 +64,7 @@ fun AppInfo(
                     intent.setData(Uri.parse("mailto:")) // only email apps should handle this
                     intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
                     intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-                    intent.putExtra(Intent.EXTRA_TEXT, emailBody);
+                    intent.putExtra(Intent.EXTRA_TEXT, emailBody)
                     appContext.startActivity(Intent.createChooser(intent,"Choose an Email client: "))
             }) {
                 Text(text = stringResource(R.string.contact) )
