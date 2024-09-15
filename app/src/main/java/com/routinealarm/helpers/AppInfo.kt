@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import com.routinealarm.GlobalData.Companion.appContext
 import com.routinealarm.R
 
@@ -42,7 +43,13 @@ fun AppInfo(
         val appName = stringResource(R.string.app_name)
         val version = info.versionName + " - " + info.longVersionCode
         val email : String = stringResource(R.string.email)
-        val emailSubject = appName+" "+version
+        val emailSubject = info.packageName+" "+version
+        val emailBody = "Application: " + appName +
+                        "\nVersion: " + version +
+                        "\nManufacturer: " + android.os.Build.MANUFACTURER +
+                        "\nModel: " + android.os.Build.MODEL+
+                        "\nDevice: " + android.os.Build.DEVICE+
+                        "\n-----------------------\n"
 
             Column( modifier = Modifier.width(250.dp),
                 horizontalAlignment = Alignment.CenterHorizontally)
@@ -50,15 +57,17 @@ fun AppInfo(
             Text(modifier = Modifier.padding(20.dp), style = MaterialTheme.typography.bodyLarge, text = appName)
             Text(style = MaterialTheme.typography.bodyMedium, text = "Carlos Sarria")
             Text(style = MaterialTheme.typography.bodyMedium, text = info.packageName)
-            Text(style = MaterialTheme.typography.bodyMedium, text = " Version: "+version)
+            Text(style = MaterialTheme.typography.bodyMedium, text = version)
 
             // Button to send an email
             Button(modifier = Modifier.padding(top = 30.dp),
                 onClick = {
-                val i = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email"))
-                i.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-                i.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-                appContext.startActivity(Intent.createChooser(i,"Choose an Email client : "))
+                    val intent = Intent(Intent.ACTION_SENDTO)
+                    intent.setData(Uri.parse("mailto:")) // only email apps should handle this
+                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+                    intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
+                    intent.putExtra(Intent.EXTRA_TEXT, emailBody);
+                    appContext.startActivity(Intent.createChooser(intent,"Choose an Email client: "))
             }) {
                 Text(text = stringResource(R.string.contact) )
             }
