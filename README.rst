@@ -35,4 +35,8 @@ These are the dependencies for Gradle (in gradle.build.kts)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
+<<<<<<< Updated upstream
     api(libs.androidx.navigation.fragment.ktx)
+=======
+    api(libs.androidx.navigation.fragment.ktx)
+>>>>>>> Stashed changes
